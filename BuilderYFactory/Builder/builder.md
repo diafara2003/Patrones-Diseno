@@ -13,6 +13,8 @@ var usuario = new Usuario("Jhonnatan", "Ureña", 30, "Colombia", "Ingeniero", "j
 
 ```
 
+#### Aquí es donde entra el Factory Method.
+
 ```` c#
 var usuario = new UsuarioBuilder()
     .ConNombre("Juan")
@@ -46,14 +48,4 @@ public Usuario Build()
     return _usuario;
 }
 ```
-
-#### Este código:
-
-- Viola el principio Open/Closed (si agregas otro tipo, debes modificarlo).
-
-- Repite lógica de creación.
-
-- No es escalable.
-
-#### Aquí es donde entra el Factory Method.
 
