@@ -1,9 +1,9 @@
 # Factory
 
 #### patrón creacional, como Builder, pero con un propósito distinto:
-en lugar de construir un objeto paso a paso, el Factory se enfoca en decidir qué tipo de objeto crear.
+- en lugar de construir un objeto paso a paso, el Factory se enfoca en decidir qué tipo de objeto crear.
 
-define una interfaz para crear objetos, pero permite que las subclases decidan cuál clase concreta la instancia.
+- define una interfaz para crear objetos, pero permite que las subclases decidan cuál clase concreta la instancia.
 
 #### 👉 En otras palabras:
 en lugar de usar new directamente, delegas la creación del objeto a una “fábrica” que sabe qué tipo crear.
@@ -26,12 +26,10 @@ else
 
 #### 🧠 ¿Qué ganamos con esto?
 
-- Encapsulas la creación de objetos.
+- Encapsular la creación de objetos.
 
 - El cliente no necesita conocer las clases concretas.
 
-
-#### Cuándo usar el patrón Factory
 
 #### Usa un Factory cuando:
 
@@ -39,4 +37,4 @@ else
 
 - Tienes lógica compleja para decidir qué tipo de objeto crear.
 
-- Planeas agregar más tipos de productos en el futuro.
+- Agregar más tipos de productos en el futuro.
