@@ -13,7 +13,7 @@ var usuario = new Usuario("Juan", "Perez", 25, "Colombia", "Desarrollador", "jho
 
 ```
 
-#### Aquí es donde entra el Factory Method.
+#### Aquí es donde entra el Builder.
 
 ```` c#
 var usuario = new UsuarioBuilder()
