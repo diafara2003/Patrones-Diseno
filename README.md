@@ -202,7 +202,7 @@ cd BuilderYFactory
 dotnet run
 ```
 
-Deberías ver una salida similar a:
+Deberías ver una salida similar a la siguiente (nota: el ejemplo actual en Program.cs usa un email vacío):
 ```
 Usuario { Nombre = Juan, Apellido = Perez, Edad = 25, Pais = Colombia, Profesion = Desarrollador, Email =  }
 Hello, World!
