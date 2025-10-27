@@ -24,6 +24,102 @@ else
     notificador = new NotificadorPush();
 ```
 
+❌ Problema: cada vez que agregues un nuevo tipo, debes modificar este código (viola el principio Open/Closed).
+
+---
+
+
+## 💻 Implementación completa
+
+### 1️⃣ Interfaz del Producto
+
+``` c#
+public interface INotificador
+{
+    void Enviar(string mensaje, string destinatario);
+}
+```
+
+### 2️⃣ Productos Concretos
+
+``` c#
+public class NotificadorEmail : INotificador
+{
+    public void Enviar(string mensaje, string destinatario)
+    {
+        Console.WriteLine($"📧 Enviando Email a {destinatario}: {mensaje}");
+        // Lógica específica de envío por email
+    }
+}
+
+public class NotificadorSMS : INotificador
+{
+    public void Enviar(string mensaje, string destinatario)
+    {
+        Console.WriteLine($"📱 Enviando SMS a {destinatario}: {mensaje}");
+        // Lógica específica de envío por SMS
+    }
+}
+
+public class NotificadorPush : INotificador
+{
+    public void Enviar(string mensaje, string destinatario)
+    {
+        Console.WriteLine($"🔔 Enviando Push a {destinatario}: {mensaje}");
+        // Lógica específica de notificación push
+    }
+}
+```
+
+### 3️⃣ La Fábrica
+
+``` c#
+public class NotificadorFactory
+{
+    public static INotificador Crear(string tipo)
+    {
+        return tipo.ToLower() switch
+        {
+            "email" => new NotificadorEmail(),
+            "sms" => new NotificadorSMS(),
+            "push" => new NotificadorPush(),
+            _ => throw new ArgumentException($"Tipo de notificador '{tipo}' no soportado")
+        };
+    }
+}
+```
+
+### 4️⃣ Uso del Cliente
+
+``` c#
+class Program
+{
+    static void Main(string[] args)
+    {
+        // El cliente solo conoce la interfaz INotificador
+        // No necesita saber qué clase concreta se está usando
+
+        INotificador notificador1 = NotificadorFactory.Crear("email");
+        notificador1.Enviar("Hola desde Factory!", "usuario@example.com");
+
+        INotificador notificador2 = NotificadorFactory.Crear("sms");
+        notificador2.Enviar("Código de verificación: 1234", "+521234567890");
+
+        INotificador notificador3 = NotificadorFactory.Crear("push");
+        notificador3.Enviar("Nueva actualización disponible", "device_token_123");
+    }
+}
+```
+
+**Salida:**
+```
+📧 Enviando Email a usuario@example.com: Hola desde Factory!
+📱 Enviando SMS a +521234567890: Código de verificación: 1234
+🔔 Enviando Push a device_token_123: Nueva actualización disponible
+```
+
+---
+
 #### 🧠 ¿Qué ganamos con esto?
 
 - Encapsular la creación de objetos.
