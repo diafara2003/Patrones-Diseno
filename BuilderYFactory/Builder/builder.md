@@ -9,9 +9,11 @@
 Imagina que tienes una clase Usuario con muchos parámetros opcionales:
 
 ``` c#
-var usuario = new Usuario("Jhonnatan", "Ureña", 30, "Colombia", "Ingeniero", "jhonnatan@correo.com");
+var usuario = new Usuario("Juan", "Perez", 25, "Colombia", "Desarrollador", "jhonnatan@correo.com");
 
 ```
+
+#### Aquí es donde entra el Builder.
 
 ```` c#
 var usuario = new UsuarioBuilder()
@@ -26,13 +28,13 @@ var usuario = new UsuarioBuilder()
 
 #### 👉 qué pasa si no se asignan los campos obligatorios antes del Build().
 
-#### una desventaja de los puntos débiles del patrón Builder si no se maneja bien
+- una desventaja de los puntos débiles del patrón Builder si no se maneja bien
 
 ### 2 maneras de solucionarlo
 
-#### Es un objeto valido
+- Es un objeto valido
 
-#### Una opcion es validar los campos antes de construir el objeto.
+- Una opcion es validar los campos antes de construir el objeto.
 
 ``` c#
 public Usuario Build()
@@ -46,14 +48,4 @@ public Usuario Build()
     return _usuario;
 }
 ```
-
-#### Este código:
-
-- Viola el principio Open/Closed (si agregas otro tipo, debes modificarlo).
-
-- Repite lógica de creación.
-
-- No es escalable.
-
-#### Aquí es donde entra el Factory Method.
 

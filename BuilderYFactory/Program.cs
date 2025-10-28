@@ -19,10 +19,14 @@ Console.WriteLine("Hello, World!");
 
 
 //factory
-NotificadorFactory factory = new EmailFactory();
-INotificador notificador = factory.CrearNotificador();
-notificador.Enviar("Hola");
+// El cliente solo conoce la interfaz INotificador
+// No necesita saber qué clase concreta se está usando
 
-NotificadorFactory factory2 = new SMSFactory();
-INotificador notificador2 = factory.CrearNotificador();
-notificador2.Enviar("Hola");
+INotificador notificador1 = NotificadorFactory.Crear(TipoNotificador.email);
+notificador1.Enviar("Hola desde Factory!", "usuario@example.com");
+
+INotificador notificador2 = NotificadorFactory.Crear(TipoNotificador.sms);
+notificador2.Enviar("Código de verificación: 1234", "+521234567890");
+
+INotificador notificador3 = NotificadorFactory.Crear(TipoNotificador.push);
+notificador3.Enviar("Nueva actualización disponible", "device_token_123");
