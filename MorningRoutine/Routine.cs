@@ -5,13 +5,11 @@ public class Routine(IClock clock)
     public string WhatShould()
     {
         var hour = clock.Now.Hour;
-        if (hour == 6)  
-            return "Hacer ejercicio";
-
-
-        if (hour == 7)
-            return "Leer y estudiar";
-
-        return "Sin Actividad";
+        return hour switch
+        {
+            6 => "Hacer ejercicio",
+            7 => "Leer y estudiar",
+            _ => "Sin Actividad"
+        };
     }
 }
