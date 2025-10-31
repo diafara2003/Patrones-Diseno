@@ -1,7 +1,7 @@
 ## Iteración 1
 
-- Reglas del negocio
-El objetivo es construir un cajero automático y nuestra primera tarea es crear el software que desglosará qué billetes y monedas debe recibir el cliente cuando intente hacer un retiro.
+### Reglas del negocio
+- El objetivo es construir un cajero automático y nuestra primera tarea es crear el software que desglosará qué billetes y monedas debe recibir el cliente cuando intente hacer un retiro.
 
 El contenido del cajero es:
 
@@ -20,8 +20,8 @@ El contenido del cajero es:
 
 
 ## Iteración 2
-Reglas del negocio
-El cajero automático tiene la siguiente distribución de dinero.
+### Reglas del negocio
+- El cajero automático tiene la siguiente distribución de dinero.
 
 - Cuando el cajero automático no disponga de dinero, debe devolver un error que indique: "El cajero automático no dispone de dinero suficiente, por favor acuda al cajero automático más cercano".
 Si el cajero automático no tiene más billetes o monedas debe intentar utilizar otras cantidades para que el usuario pueda retirar el importe.
