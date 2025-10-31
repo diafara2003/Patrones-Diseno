@@ -74,4 +74,20 @@ public class MorningRoutineTest
         var caller = ()=> routine.AddActivity(newActividad);
         caller.Should().Throw<ArgumentException>().WithMessage("Ya existe una actividad en ese horario");
     }
+
+    [Fact]
+    public void EditarUnaActividad()
+    {
+        //Arrange
+        var clock = new FakeClock(new DateTime(2025,1,1,10,0,0));
+        var routine = new Routine(clock);
+        var newActividad = new Activity(new TimeSpan(10, 0, 0), new TimeSpan(11, 0, 0), "Estudiar");
+        routine.AddActivity(newActividad);
+        
+        //Act
+        routine.UpdateActivity(newActividad, new TimeSpan(11, 30, 0), new TimeSpan(11, 30, 0), "Estudiar");
+        
+        //Assert
+        routine.WhatShouldNow().Should().Be("Estudiar");
+    }
 }

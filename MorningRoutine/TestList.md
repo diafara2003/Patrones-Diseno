@@ -12,6 +12,7 @@
   El sistema debería mostrar "Sin actividad"
 - [x] Poder añadir nuevas actividades que lleven menos de una hora
 - [x] Si se agrega una actividad con una hora que ya existe debe generar error
+- [ ] Poder Actualizar una actividad
 
 ## Para reflexionar...
 - ¿Funcionaría tu programa en otra zona horaria?

@@ -38,4 +38,9 @@ public class Routine
 
         _activities.Add(newActivity);
     }
+
+    public void UpdateActivity(Activity newActividad, TimeSpan timeSpan, TimeSpan timeSpan1, string estudiar)
+    {
+        throw new NotImplementedException();
+    }
 }
