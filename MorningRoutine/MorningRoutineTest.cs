@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Diagnostics;
+using FluentAssertions;
 
 namespace MorningRoutine;
 
@@ -11,7 +12,7 @@ public class MorningRoutineTest
         var clock = new FakeClock(new DateTime(2025, 1, 1, 6, 0, 0));
         var routine = new Routine(clock);
         // Act
-        var resultado = routine.WhatShould();
+        var resultado = routine.WhatShouldNow();
         //Assert
         resultado.Should().Be("Hacer ejercicio");
     }
@@ -24,7 +25,7 @@ public class MorningRoutineTest
         var routine = new Routine(clock);
 
         //Act
-        var resultado = routine.WhatShould();
+        var resultado = routine.WhatShouldNow();
 
         //Assert
         resultado.Should().Be("Leer y estudiar");
@@ -38,9 +39,25 @@ public class MorningRoutineTest
         var routine = new Routine(clock);
 
         //Act
-        var resultado = routine.WhatShould();
+        var resultado = routine.WhatShouldNow();
 
         //Assert
         resultado.Should().Be("Desayunar");
+    }
+
+    [Fact]
+    public void PoderAñadirActividadesQueDurenMenosDeUnaHora()
+    {
+        //Arrange
+        var clock = new FakeClock(new DateTime(2025, 1, 1, 10, 0, 0));
+        var routine = new Routine(clock);
+        var newActividad = new Activity(new TimeSpan(10,0,0),new TimeSpan(10,30,0),"Estudiar");
+        
+        //Act
+        routine.AddActivity(newActividad);
+        
+        //Assert
+        routine.WhatShouldNow().Should().Be("Estudiar");
+        
     }
 }
