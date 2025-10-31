@@ -5,11 +5,8 @@ De 06:00 a 06:59 - Hacer ejercicio
 De 07:00 a 07:59 - Leer y estudiar
 De 08:00 a 08:59 - Desayunar
 
-## Introducción
+## Iteración 1
 
-Como soy una persona olvidadiza,
-quiero un programa que me recuerde mi rutina matutina,
-para que pueda seguir con mis actividades.
 - Escenario 1: Mostrar "Hacer ejercicio" entre las 06:00 y las 06:59
 Dado que la hora actual es entre las 06:00 y las 06:59
 Cuando solicito la actividad a realizar
