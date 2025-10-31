@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using FluentAssertions;
+﻿using FluentAssertions;
 
 namespace MorningRoutine;
 
@@ -46,18 +45,33 @@ public class MorningRoutineTest
     }
 
     [Fact]
-    public void PoderAñadirActividadesQueDurenMenosDeUnaHora()
+    public void PoderAgregarActividadesQueDurenMenosDeUnaHora()
     {
         //Arrange
         var clock = new FakeClock(new DateTime(2025, 1, 1, 10, 0, 0));
         var routine = new Routine(clock);
-        var newActividad = new Activity(new TimeSpan(10,0,0),new TimeSpan(10,30,0),"Estudiar");
+        var newActividad = new Activity(new TimeSpan(10, 0, 0), new TimeSpan(10, 30, 0), "Estudiar");
+
+        //Act
+        routine.AddActivity(newActividad);
+
+        //Assert
+        routine.WhatShouldNow().Should().Be("Estudiar");
+    }
+
+    [Fact]
+    public void SiSeAgregoUnaActividadConUnaHoraQueYaExiste_Debe_GenerarUnaExcepcion()
+    {
+        //Arrange
+        var clock = new FakeClock(new DateTime(2025, 1, 1, 10, 0, 0));
+        var routine = new Routine(clock);
+        var newActividad = new Activity(new TimeSpan(10, 0, 0), new TimeSpan(11, 0, 0), "Estudiar");
         
         //Act
         routine.AddActivity(newActividad);
         
         //Assert
-        routine.WhatShouldNow().Should().Be("Estudiar");
-        
+        var caller = ()=> routine.AddActivity(newActividad);
+        caller.Should().Throw<ArgumentException>();
     }
 }
