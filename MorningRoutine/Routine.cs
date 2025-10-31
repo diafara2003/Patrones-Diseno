@@ -33,6 +33,9 @@ public class Routine
 
     public void AddActivity(Activity newActivity)
     {
+        if (_activities.Any(activity => activity.ContainsTime(newActivity.Start)))
+            throw new ArgumentException("Ya existe una actividad en ese horario");
+
         _activities.Add(newActivity);
     }
 }

@@ -72,6 +72,6 @@ public class MorningRoutineTest
         
         //Assert
         var caller = ()=> routine.AddActivity(newActividad);
-        caller.Should().Throw<ArgumentException>();
+        caller.Should().Throw<ArgumentException>().WithMessage("Ya existe una actividad en ese horario");
     }
 }
