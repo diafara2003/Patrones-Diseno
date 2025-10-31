@@ -29,4 +29,18 @@ public class MorningRoutineTest
         //Assert
         resultado.Should().Be("Leer y estudiar");
     }
+
+    [Fact]
+    public void SiLaHoraEs8_Debe_MostrarDesayunar()
+    {
+        //Arrange
+        var clock = new FakeClock(new DateTime(2025, 1, 1, 8, 0, 0));
+        var routine = new Routine(clock);
+
+        //Act
+        var resultado = routine.WhatShould();
+
+        //Assert
+        resultado.Should().Be("Desayunar");
+    }
 }
