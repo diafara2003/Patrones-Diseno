@@ -10,6 +10,7 @@
 - [x] Dado que la hora actual es antes de las 05:59 o después de las 09:00
   Cuando solicito la actividad a realizar
   El sistema debería mostrar "Sin actividad"
+- [ ] Poder añadir nuevas actividades que lleven menos de una hora
 
 
 ## Para reflexionar...
