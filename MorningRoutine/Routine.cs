@@ -8,7 +8,8 @@ public class Routine(IClock clock)
         return hour switch
         {
             6 => "Hacer ejercicio",
-            7 => "Leer y estudiar", 
+            7 => "Leer y estudiar",
+            8 => "Desayunar",
             _ => "Sin Actividad"
         };
     }
