@@ -70,4 +70,8 @@ public class GameOfLife
     {
         return row <= 0 || cell <= 0;
     }
+
+    public void NextGen()
+    {
+    }
 }

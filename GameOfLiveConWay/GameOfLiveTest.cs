@@ -127,6 +127,21 @@ public class GameOfLiveTest
         //assert
         vecinos.Should().Be(0);
     }
+
+    [Fact]
+    public void UnaCelulaViva_ConMenosDe2Vecinos_Muere()
+    {
+        //Arrange
+        var gameOfLive = new GameOfLife(3, 3);
+        gameOfLive.SetAlive(0, 0); //centro
+        
+        //Act
+        gameOfLive.NextGen();
+        
+        //Arrange
+        gameOfLive.IsALive(0, 0).Should().BeFalse();
+
+    }
 }
 
 public record SizeGrid(int row, int col);
