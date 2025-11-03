@@ -172,6 +172,23 @@ public class GameOfLiveTest
         //Arrange
         gameOfLive.IsALive(1, 1).Should().BeFalse();
     }
+
+    [Fact]
+    public void CelulaMuertaConTresVecinosDebeNacer()
+    {
+        //Arrange
+        var gameOfLive = new GameOfLife(3, 3);
+         gameOfLive.SetAlive(1, 1);
+         gameOfLive.SetAlive(1, 0);
+         gameOfLive.SetAlive(1, 2);
+         gameOfLive.NextGen();
+        
+        //Act
+        gameOfLive.NextGen();
+        
+        //Arrange
+        gameOfLive.IsALive(1, 1).Should().BeTrue();
+    }
 }
 
 public record SizeGrid(int row, int col);

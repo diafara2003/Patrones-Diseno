@@ -80,14 +80,27 @@ public class GameOfLife
             {
                 var count = CountNeighbor(row, cell);
 
-                //regla 1. muere por infrapoblacion <2
-                //regla 2. vive por sobrevivencia 2 o 3
 
-
-                nextGen[row, cell] = IsALive(row, cell) && (count is 2 or 3);
+                if (IsALive(row, cell))
+                    //regla 1. muere por infrapoblacion <2
+                    //regla 2. vive por sobrevivencia 2 o 3
+                    nextGen[row, cell] = IsCellLife(count);
+                else
+                    //regla 4. nace por reproduccion 
+                    nextGen[row, cell] = IsCellBornWhenCellDie(count);
             }
         }
 
         Array.Copy(nextGen, _grid, nextGen.Length);
+    }
+
+    private static bool IsCellBornWhenCellDie(int count)
+    {
+        return count == 3;
+    }
+
+    private static bool IsCellLife(int count)
+    {
+        return (count is 2 or 3);
     }
 }
