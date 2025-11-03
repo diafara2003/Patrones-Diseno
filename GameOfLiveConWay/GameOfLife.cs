@@ -37,7 +37,7 @@ public class GameOfLife
         {
             for (var cell = 0; cell < _cells; cell++)
             {
-                var aliveNeighbours = CountNeighbor(row, cell);
+                var aliveNeighbours = CountAliveNeighbours(row, cell);
 
 
                 if (IsALive(row, cell))
@@ -53,7 +53,7 @@ public class GameOfLife
         Array.Copy(nextGen, _grid, nextGen.Length);
     }
 
-    public int CountNeighbor(int row, int cell)
+    public int CountAliveNeighbours(int row, int cell)
     {
         var count = 0;
 

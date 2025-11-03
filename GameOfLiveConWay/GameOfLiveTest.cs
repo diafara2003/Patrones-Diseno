@@ -24,7 +24,7 @@ public class GameOfLiveTest
         var gameOfLive = new GameOfLife(3, 3);
 
         //Act
-        var vecinos = gameOfLive.CountNeighbor(1, 1);
+        var vecinos = gameOfLive.CountAliveNeighbours(1, 1);
 
         vecinos.Should().Be(0);
     }
@@ -108,7 +108,7 @@ public class GameOfLiveTest
         gameOfLive.SetAlive(neighbor.row, neighbor.col);
 
         //act
-        var vecinos = gameOfLive.CountNeighbor(alive.row, alive.col);
+        var vecinos = gameOfLive.CountAliveNeighbours(alive.row, alive.col);
 
         //assert
         vecinos.Should().Be(1);
@@ -122,7 +122,7 @@ public class GameOfLiveTest
         gameOfLive.SetAlive(0, 2); //centro
 
         //act
-        var vecinos = gameOfLive.CountNeighbor(0, 2);
+        var vecinos = gameOfLive.CountAliveNeighbours(0, 2);
 
         //assert
         vecinos.Should().Be(0);
