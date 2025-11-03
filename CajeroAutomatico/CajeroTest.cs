@@ -28,6 +28,6 @@ public class CajeroTest
 
         //Assert
 
-        resultado.Should().BeEquivalentTo(new List<int> { 500 });
+        resultado.Should().BeEquivalentTo(new List<Money> { new Money(500, TipoMoney.bill, 1) });
     }
 }

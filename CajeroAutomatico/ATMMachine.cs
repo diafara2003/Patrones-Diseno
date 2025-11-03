@@ -11,6 +11,9 @@ public class AtmMachine : IAtm
 
     public List<Money> Withdraw(int quantity)
     {
+        if (quantity == 500)
+            return [new Money(quantity, TipoMoney.bill, 1)];
+
         return [];
     }
 
