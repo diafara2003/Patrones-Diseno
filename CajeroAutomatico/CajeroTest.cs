@@ -28,7 +28,7 @@ public class CajeroTest
 
         //Assert
 
-        resultado.Should().BeEquivalentTo(new List<Money> { new Money(500, TipoMoney.bill) });
+        resultado.Should().BeEquivalentTo(new List<Money> { new Money(500, TipoMoney.bill, 1) });
     }
 
     [Fact]
@@ -44,8 +44,8 @@ public class CajeroTest
 
         resultado.Should().BeEquivalentTo(new List<Money>
         {
-            new Money(500, TipoMoney.bill),
-            new Money(200, TipoMoney.bill)
+            new Money(500, TipoMoney.bill, 1),
+            new Money(200, TipoMoney.bill, 1)
         });
     }
 
@@ -62,9 +62,9 @@ public class CajeroTest
 
         resultado.Should().BeEquivalentTo(new List<Money>
         {
-            new Money(500, TipoMoney.bill),
-            new Money(200, TipoMoney.bill),
-            new Money(100, TipoMoney.bill)
+            new Money(500, TipoMoney.bill, 1),
+            new Money(200, TipoMoney.bill, 1),
+            new Money(100, TipoMoney.bill, 1)
         });
     }
 
@@ -80,14 +80,10 @@ public class CajeroTest
         //Assert
         resultado.Should().BeEquivalentTo(new List<Money>
         {
-            new Money(500, TipoMoney.bill),
-            new Money(500, TipoMoney.bill),
-            new Money(200, TipoMoney.bill),
-            new Money(200, TipoMoney.bill),
-            new Money(300, TipoMoney.bill),
-            new Money(100, TipoMoney.bill),
-            new Money(20, TipoMoney.bill),
-            new Money(5, TipoMoney.bill),
+            new Money(500, TipoMoney.bill, 3),
+            new Money(200, TipoMoney.bill, 1),
+            new Money(20, TipoMoney.bill, 1),
+            new Money(5, TipoMoney.bill, 1),
         });
     }
 }

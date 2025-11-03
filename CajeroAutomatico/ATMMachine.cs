@@ -2,7 +2,7 @@ namespace CajeroAutomatico;
 
 public class AtmMachine : IAtm
 {
-    private readonly List<MoneyMachine> _currentMoney;
+    private readonly List<Money> _currentMoney;
 
     public AtmMachine()
     {
@@ -23,16 +23,16 @@ public class AtmMachine : IAtm
             if (IsQuantityValidForWithdraw(quantityToWithdraw))
                 continue;
 
-            result.Add(currentMoneyMachine.money);
+            result.Add(currentMoneyMachine with { quantity = quantityToWithdraw });
             quantity -= CalculateRemainingQuantity(quantityToWithdraw, currentMoneyMachine);
         }
 
         return result;
     }
 
-    private static int CalculateRemainingQuantity(int quantityToWithdraw, MoneyMachine currentMoneyMachine)
+    private static int CalculateRemainingQuantity(int quantityToWithdraw, Money currentMoneyMachine)
     {
-        return quantityToWithdraw * currentMoneyMachine.money.value;
+        return quantityToWithdraw * currentMoneyMachine.value;
     }
 
     private static bool IsQuantityValidForWithdraw(int quantityToWithdraw)
@@ -40,9 +40,9 @@ public class AtmMachine : IAtm
         return quantityToWithdraw <= 0;
     }
 
-    private static int QuantityToWithdraw(int quantity, MoneyMachine currentMoneyMachine)
+    private static int QuantityToWithdraw(int quantity, Money currentMoneyMachine)
     {
-        return quantity / currentMoneyMachine.money.value;
+        return quantity / currentMoneyMachine.value;
     }
 
     public List<Money> GetBalance()
@@ -50,19 +50,19 @@ public class AtmMachine : IAtm
         return [];
     }
 
-    private List<MoneyMachine> InitialAmount()
+    private List<Money> InitialAmount()
     {
         return
         [
-            new MoneyMachine(new Money(500, TipoMoney.bill), 2),
-            new MoneyMachine(new Money(200, TipoMoney.bill), 3),
-            new MoneyMachine(new Money(100, TipoMoney.bill), 5),
-            new MoneyMachine(new Money(50, TipoMoney.bill), 12),
-            new MoneyMachine(new Money(20, TipoMoney.bill), 20),
-            new MoneyMachine(new Money(10, TipoMoney.bill), 50),
-            new MoneyMachine(new Money(5, TipoMoney.bill), 100),
-            new MoneyMachine(new Money(2, TipoMoney.coin), 250),
-            new MoneyMachine(new Money(1, TipoMoney.bill), 500),
+            new Money(500, TipoMoney.bill, 2),
+            new Money(200, TipoMoney.bill, 3),
+            new Money(100, TipoMoney.bill, 5),
+            new Money(50, TipoMoney.bill, 12),
+            new Money(20, TipoMoney.bill, 20),
+            new Money(10, TipoMoney.bill, 50),
+            new Money(5, TipoMoney.bill, 100),
+            new Money(2, TipoMoney.coin, 250),
+            new Money(1, TipoMoney.bill, 500),
         ];
     }
 }
