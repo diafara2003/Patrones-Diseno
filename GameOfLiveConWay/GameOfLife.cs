@@ -18,6 +18,6 @@ public class GameOfLife(int rows, int cells)
 
     public void SetAlive(int row, int cell)
     {
-        throw new NotImplementedException();
+        _grid[row, cell] = true;
     }
 }
