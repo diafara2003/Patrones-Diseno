@@ -22,9 +22,9 @@ public class GameOfLiveTest
     {
         //Arrange
         var gameOfLive = new GameOfLife(3, 3);
-        
+
         //Act
-        var vecinos = gameOfLive.CountNeighbor(1,1);
+        var vecinos = gameOfLive.CountNeighbor(1, 1);
 
         vecinos.Should().Be(0);
     }
@@ -34,10 +34,23 @@ public class GameOfLiveTest
     {
         //Arrange
         var gameOfLive = new GameOfLife(3, 3);
-        
+
         //Act
-        gameOfLive.SetAlive(1,1);
-        
-        gameOfLive.IsALive(1,1).Should().BeTrue();
+        gameOfLive.SetAlive(1, 1);
+
+        gameOfLive.IsALive(1, 1).Should().BeTrue();
+    }
+
+    [Fact]
+    public void ALSetearCeldaVivaYSuperaGrid_Debe_GenerarUnaExcepcion()
+    {
+        //Arrange
+        var gameOfLive = new GameOfLife(3, 3);
+
+        //Act
+        var caller = () => gameOfLive.SetAlive(4, 4);
+
+        //Assert
+        caller.Should().ThrowExactly<IndexOutOfRangeException>().WithMessage("el valor de las celdas debe estar dentro de los limites row:3-cell:3");
     }
 }

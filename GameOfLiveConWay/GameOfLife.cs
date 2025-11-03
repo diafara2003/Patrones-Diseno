@@ -18,6 +18,10 @@ public class GameOfLife(int rows, int cells)
 
     public void SetAlive(int row, int cell)
     {
+        if (row > _rows && cell > _cells)
+            throw new IndexOutOfRangeException(
+                $"El valor de las celdas debe estar dentro de los limites row:{_rows}-cell:{_cells}");
+
         _grid[row, cell] = true;
     }
 }
