@@ -30,4 +30,41 @@ public class CajeroTest
 
         resultado.Should().BeEquivalentTo(new List<Money> { new Money(500, TipoMoney.bill) });
     }
+
+    [Fact]
+    public void Retirar700_Debe_RegresarUnBilleteDe500YUnCoinDe200()
+    {
+        //Arrange
+        var cajero = new AtmMachine();
+
+        //Act
+        var resultado = cajero.Withdraw(700);
+
+        //Assert
+
+        resultado.Should().BeEquivalentTo(new List<Money>
+        {
+            new Money(500, TipoMoney.bill),
+            new Money(200, TipoMoney.bill)
+        });
+    }
+
+    [Fact]
+    public void Retirar800_Debe_RegresarUnBilleteDe500YUnCoinDe200YUnCoinDe100()
+    {
+        //Arrange
+        var cajero = new AtmMachine();
+
+        //Act
+        var resultado = cajero.Withdraw(800);
+
+        //Assert
+
+        resultado.Should().BeEquivalentTo(new List<Money>
+        {
+            new Money(500, TipoMoney.bill),
+            new Money(200, TipoMoney.bill),
+            new Money(100, TipoMoney.bill)
+        });
+    }
 }

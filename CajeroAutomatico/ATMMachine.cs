@@ -18,16 +18,31 @@ public class AtmMachine : IAtm
 
         foreach (var currentMoneyMachine in _currentMoney)
         {
-            var quantityToWithdraw = quantity / currentMoneyMachine.quantity;
+            var quantityToWithdraw = QuantityToWithdraw(quantity, currentMoneyMachine);
 
-            if (quantityToWithdraw <= 0)
+            if (IsQuantityValidForWithdraw(quantityToWithdraw))
                 continue;
 
             result.Add(currentMoneyMachine.money);
-            quantity -= quantityToWithdraw * currentMoneyMachine.quantity;
+            quantity -= CalculateRemainingQuantity(quantityToWithdraw, currentMoneyMachine);
         }
 
         return result;
+    }
+
+    private static int CalculateRemainingQuantity(int quantityToWithdraw, MoneyMachine currentMoneyMachine)
+    {
+        return quantityToWithdraw * currentMoneyMachine.money.value;
+    }
+
+    private static bool IsQuantityValidForWithdraw(int quantityToWithdraw)
+    {
+        return quantityToWithdraw <= 0;
+    }
+
+    private static int QuantityToWithdraw(int quantity, MoneyMachine currentMoneyMachine)
+    {
+        return quantity / currentMoneyMachine.money.value;
     }
 
     public List<Money> GetBalance()
