@@ -73,18 +73,14 @@ public class GameOfLife
 
     public void NextGen()
     {
-        var newState = new bool[_rows, _cells];
-
         for (var row = 0; row < _rows; row++)
         {
             for (var cell = 0; cell < _cells; cell++)
             {
                 var count = CountNeighbor(row, cell);
                 if (IsALive(row, cell) && count < 2)
-                    newState[row, cell] = false;
+                    _grid[row, cell] = false;
             }
         }
-
-        Array.Copy(newState, _grid, _grid.Length);
     }
 }
