@@ -129,12 +129,8 @@ public class GameOfLiveTest
     }
 }
 
-public interface IGameOfLife
-{
-}
+public record SizeGrid(int row, int col);
 
-public record SizeGrid(int row, int col) : IGameOfLife;
+public record Alive(int row, int col);
 
-public record Alive(int row, int col) : IGameOfLife;
-
-public record Neighbor(int row, int col) : IGameOfLife;
+public record Neighbor(int row, int col);
