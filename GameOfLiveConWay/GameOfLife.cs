@@ -37,16 +37,16 @@ public class GameOfLife
         {
             for (var cell = 0; cell < _cells; cell++)
             {
-                var count = CountNeighbor(row, cell);
+                var aliveNeighbours = CountNeighbor(row, cell);
 
 
                 if (IsALive(row, cell))
                     //regla 1. muere por infrapoblacion <2
                     //regla 2. vive por sobrevivencia 2 o 3
-                    nextGen[row, cell] = IsCellLife(count);
+                    nextGen[row, cell] = IsCellLife(aliveNeighbours);
                 else
                     //regla 4. nace por reproduccion 
-                    nextGen[row, cell] = IsCellBornWhenCellDie(count);
+                    nextGen[row, cell] = IsCellBornWhenCellDie(aliveNeighbours);
             }
         }
 
