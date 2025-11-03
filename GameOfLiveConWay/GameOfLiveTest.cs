@@ -147,14 +147,15 @@ public class GameOfLiveTest
     {
         //Arrange
         var gameOfLive = new GameOfLife(3, 3);
-        gameOfLive.SetAlive(0, 0); //centro
-        gameOfLive.SetAlive(1, 0); //centro
+        gameOfLive.SetAlive(1, 1); //celula viva
+        gameOfLive.SetAlive(1, 0); //venino
+        gameOfLive.SetAlive(1, 2); //vecino
 
         //Act
         gameOfLive.NextGen();
 
         //Arrange
-        gameOfLive.IsALive(0, 0).Should().BeTrue();
+        gameOfLive.IsALive(1, 1).Should().BeTrue();
     }
 }
 
