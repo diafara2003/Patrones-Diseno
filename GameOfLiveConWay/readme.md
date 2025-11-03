@@ -8,7 +8,7 @@ son las célula que están horizontal, vertical o diagonalmente adyacentes a ell
 siguientes transiciones:
 
 - [x] Cualquier célula viva con menos de dos vecinas vivas muere, como si la causa fuera la infrapoblación.
-- [ ] Cualquier célula viva con dos o tres vecinas vivas pasa a la siguiente generación.
+- [x] Cualquier célula viva con dos o tres vecinas vivas pasa a la siguiente generación.
 - [ ] Cualquier célula viva con más de tres vecinas vivas muere, como por sobrepoblación.
 - [ ] Cualquier célula muerta con exactamente tres vecinas vivas se convierte en una célula viva, como por reproducción.
 - [ ] El patrón inicial constituye la semilla del sistema. La primera generación se crea aplicando las reglas mencionadas
