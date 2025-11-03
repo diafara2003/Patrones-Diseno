@@ -3,12 +3,12 @@ namespace CajeroAutomatico;
 public class AtmMachine : IAtm
 {
     private readonly CalculateBills _calculateBills;
-    private readonly List<Money> _stock;
+    private readonly Stock _stock;
 
     public AtmMachine()
     {
         _calculateBills = new CalculateBills();
-        _stock = StockInitial();
+        _stock = new Stock(StockInitial());
     }
 
     public List<Money> Withdraw(int quantity)
@@ -16,38 +16,19 @@ public class AtmMachine : IAtm
         if (quantity == 0)
             return [];
 
-        var calculatedBills = _calculateBills.CalculateWithdraw(quantity, _stock);
+        var calculatedBills = _calculateBills.CalculateWithdraw(quantity, _stock.GetStock());
 
         foreach (var billDetail in calculatedBills)
         {
-            var stockBill = RetrieveBillCount(billDetail);
+            var stockBill = _stock.GetQuantityMoney(billDetail);
 
             if (stockBill < billDetail.quantity)
                 throw new InvalidOperationException("No hay suficiente cantidad de billetes");
 
-            UpdateStock(billDetail);
+            _stock.UpdateStock(billDetail);
         }
 
         return calculatedBills;
-    }
-
-    private void UpdateStock(Money money)
-    {
-        var indexMoney = _stock.FindIndex(c => c.value == money.value && c.typeMoney == money.typeMoney);
-
-        if (indexMoney == -1)
-            return;
-
-        var remainingQuantity = _stock[indexMoney].quantity - money.quantity;
-        _stock[indexMoney] = money with { quantity = remainingQuantity };
-    }
-
-    private int RetrieveBillCount(Money ammount)
-    {
-        return _stock.Find(moneyItem => moneyItem.value == ammount.value
-                                        && moneyItem.typeMoney == ammount.typeMoney)
-                   ?.quantity ??
-               0;
     }
 
 
