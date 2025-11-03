@@ -23,12 +23,23 @@ public class GameOfLife
 
     public int CountNeighbor(int row, int cell)
     {
-        return 0;
-    }
+        var count = 0;
 
-    private bool IsInvalidGrid(int row, int cell)
-    {
-        return row <= 0 || cell <= 0;
+        var initialRow = row - 1;
+        var initialCell = cell - 1;
+        var finalRow = row + 1;
+        var finalCell = cell + 1;
+        for (var r = initialRow; r <= finalRow; r++)
+        {
+            for (var c = initialCell; c < finalCell; c++)
+            {
+                if (IsALive(r, c))
+                    count++;
+            }
+        }
+
+
+        return count;
     }
 
     public void SetAlive(int row, int cell)
@@ -38,5 +49,10 @@ public class GameOfLife
                 $"El valor de las celdas debe estar dentro de los limites row:{_rows}-cell:{_cells}");
 
         _grid[row, cell] = true;
+    }
+
+    private bool IsInvalidGrid(int row, int cell)
+    {
+        return row <= 0 || cell <= 0;
     }
 }
