@@ -64,4 +64,20 @@ public class GameOfLiveTest
         caller.Should().ThrowExactly<IndexOutOfRangeException>()
             .WithMessage("Los valores de las celdas deben ser mayores a cero");
     }
+
+    [Fact]
+    public void DosCelulasVivasSeguidasALaDerecha_Debe_RetornarContarVecinos1()
+    {
+        //arrange
+        var gameOfLive = new GameOfLife(3, 3);
+        gameOfLive.SetAlive(1, 1);
+        gameOfLive.SetAlive(1, 2);
+        
+        //act
+        var vecinos = gameOfLive.CountNeighbor(1, 1);
+        
+        //assert
+        vecinos.Should().Be(1);
+        
+    }
 }
