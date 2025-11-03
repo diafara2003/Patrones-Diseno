@@ -67,4 +67,27 @@ public class CajeroTest
             new Money(100, TipoMoney.bill)
         });
     }
+
+    [Fact]
+    public void Retirar_1725_RegresaCombinacionCorrecta()
+    {
+        //Arrange
+        var cajero = new AtmMachine();
+
+        //Act
+        var resultado = cajero.Withdraw(1725);
+
+        //Assert
+        resultado.Should().BeEquivalentTo(new List<Money>
+        {
+            new Money(500, TipoMoney.bill),
+            new Money(500, TipoMoney.bill),
+            new Money(200, TipoMoney.bill),
+            new Money(200, TipoMoney.bill),
+            new Money(300, TipoMoney.bill),
+            new Money(100, TipoMoney.bill),
+            new Money(20, TipoMoney.bill),
+            new Money(5, TipoMoney.bill),
+        });
+    }
 }
