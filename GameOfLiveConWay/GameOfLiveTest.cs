@@ -17,16 +17,3 @@ public class GameOfLiveTest
         isALive.Should().BeFalse();
     }
 }
-
-public class GameOfLife
-{
-    public GameOfLife(int rows, int cells)
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool IsALive(int row, int cell)
-    {
-        throw new NotImplementedException();
-    }
-}
