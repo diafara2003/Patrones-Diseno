@@ -75,12 +75,12 @@ public class CajeroTest
         var cajero = new AtmMachine();
 
         //Act
-        var resultado = cajero.Withdraw(1725);
+        var resultado = cajero.Withdraw(1225);
 
         //Assert
         resultado.Should().BeEquivalentTo(new List<Money>
         {
-            new Money(500, TipoMoney.bill, 3),
+            new Money(500, TipoMoney.bill, 2),
             new Money(200, TipoMoney.bill, 1),
             new Money(20, TipoMoney.bill, 1),
             new Money(5, TipoMoney.bill, 1),
@@ -88,13 +88,13 @@ public class CajeroTest
     }
 
     [Fact]
-    public void Retirar_1200_SinSuficientesBilletes_DeberiaFallar()
+    public void Retirar_2000_SinSuficientesBilletes_DeberiaFallar()
     {
         //Arrange
         var cajero = new AtmMachine();
 
         //Act
-        var caller = () => cajero.Withdraw(1200);
+        var caller = () => cajero.Withdraw(2000);
 
         //Assert
         caller.Should().Throw<InvalidOperationException>();
