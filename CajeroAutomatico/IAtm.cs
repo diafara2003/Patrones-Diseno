@@ -10,6 +10,6 @@ public enum TipoMoney
 
 public interface IAtm
 {
-    public List<string> Withdraw(int quantity);
+    public List<Money> Withdraw(int quantity);
     public List<Money> GetBalance();
 }

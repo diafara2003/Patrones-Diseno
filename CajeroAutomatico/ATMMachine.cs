@@ -2,7 +2,7 @@ namespace CajeroAutomatico;
 
 public class ATMMachine : IAtm
 {
-    public List<string> Withdraw(int quantity)
+    public List<Money> Withdraw(int quantity)
     {
         throw new NotImplementedException();
     }
