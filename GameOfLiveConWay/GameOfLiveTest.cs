@@ -134,13 +134,12 @@ public class GameOfLiveTest
         //Arrange
         var gameOfLive = new GameOfLife(3, 3);
         gameOfLive.SetAlive(0, 0); //centro
-        
+
         //Act
         gameOfLive.NextGen();
-        
+
         //Arrange
         gameOfLive.IsALive(0, 0).Should().BeFalse();
-
     }
 }
 
