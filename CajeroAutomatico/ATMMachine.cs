@@ -16,17 +16,30 @@ public class AtmMachine : IAtm
         if (quantity == 0)
             return [];
 
-        var calculate = _calculateBills.CalculateWithdraw(quantity, _stock);
+        var calculatedBills = _calculateBills.CalculateWithdraw(quantity, _stock);
 
-        foreach (var ammount in calculate)
+        foreach (var billDetail in calculatedBills)
         {
-            var stockBill = RetrieveBillCount(ammount);
+            var stockBill = RetrieveBillCount(billDetail);
 
-            if (stockBill < ammount.quantity)
+            if (stockBill < billDetail.quantity)
                 throw new InvalidOperationException("No hay suficiente cantidad de billetes");
+
+            UpdateStock(billDetail);
         }
 
-        return calculate;
+        return calculatedBills;
+    }
+
+    private void UpdateStock(Money money)
+    {
+        var indexMoney = _stock.FindIndex(c => c.value == money.value && c.typeMoney == money.typeMoney);
+
+        if (indexMoney == -1)
+            return;
+
+        var remainingQuantity = _stock[indexMoney].quantity - money.quantity;
+        _stock[indexMoney] = money with { quantity = remainingQuantity };
     }
 
     private int RetrieveBillCount(Money ammount)
