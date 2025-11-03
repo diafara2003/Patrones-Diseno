@@ -20,43 +20,7 @@ public class GameOfLife
     {
         return _grid[row, cell];
     }
-
-    public int CountNeighbor(int row, int cell)
-    {
-        var count = 0;
-
-        var initialRow = row - 1;
-        var initialCell = cell - 1;
-        var finalRow = row + 1;
-        var finalCell = cell + 1;
-        for (var r = initialRow; r <= finalRow; r++)
-        {
-            if (IsBoundContext(r, _rows)) continue;
-            for (var c = initialCell; c <= finalCell; c++)
-            {
-                if (IsBoundContext(c, _cells) || IsSkipCurrentCell(row, cell, r, c))
-                    continue;
-
-                if (IsALive(r, c))
-                    count++;
-            }
-        }
-
-
-        return count;
-    }
-
-    private static bool IsBoundContext(int position, int limit)
-    {
-        return position <= -1 || position >= limit;
-    }
-
-
-    private bool IsSkipCurrentCell(int row, int cell, int r, int c)
-    {
-        return r == row && c == cell;
-    }
-
+    
     public void SetAlive(int row, int cell)
     {
         if (row > _rows && cell > _cells)
@@ -64,11 +28,6 @@ public class GameOfLife
                 $"El valor de las celdas debe estar dentro de los limites row:{_rows}-cell:{_cells}");
 
         _grid[row, cell] = true;
-    }
-
-    private bool IsInvalidGrid(int row, int cell)
-    {
-        return row <= 0 || cell <= 0;
     }
 
     public void NextGen()
@@ -94,6 +53,69 @@ public class GameOfLife
         Array.Copy(nextGen, _grid, nextGen.Length);
     }
 
+    public int CountNeighbor(int row, int cell)
+    {
+        var count = 0;
+
+        var minRows = MinPosition(row);
+        var maxRows = MaxPosition(row);
+
+        var minCells = MinPosition(cell);
+        var maxCells = MaxPosition(cell);
+
+        for (var rowPosition = minRows; rowPosition <= maxRows; rowPosition++)
+        {
+            if (IsPositionOutside(rowPosition, _rows))
+                continue;
+
+            for (var cellPosition = minCells; cellPosition <= maxCells; cellPosition++)
+            {
+                if (ShouldSkipCell(row, rowPosition, cell, cellPosition))
+                    continue;
+
+                if (IsALive(rowPosition, cellPosition))
+                    count++;
+            }
+        }
+
+
+        return count;
+    }
+
+    private bool ShouldSkipCell(int targetRow, int currentRow, int targetCell, int currentCell)
+    {
+        return IsPositionOutside(currentCell, _cells) ||
+               IsSamePosition(targetRow, currentRow,targetCell, currentCell);
+    }
+
+    private static int MaxPosition(int currentPosition)
+    {
+        return currentPosition + 1;
+    }
+
+    private static int MinPosition(int currentPosition)
+    {
+        return currentPosition - 1;
+    }
+
+    private static bool IsPositionOutside(int position, int limit)
+    {
+        return position <= -1 || position >= limit;
+    }
+
+
+    private bool IsSamePosition(int targetRow, int currentRow,int targetCell,  int currentCell)
+    {
+        return currentRow == targetRow && currentCell == targetCell;
+    }
+
+   
+    private bool IsInvalidGrid(int row, int cell)
+    {
+        return row <= 0 || cell <= 0;
+    }
+
+   
     private static bool IsCellBornWhenCellDie(int count)
     {
         return count == 3;
