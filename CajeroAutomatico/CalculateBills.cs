@@ -12,7 +12,7 @@ public class CalculateBills
             .ToList();
 
 
-        foreach (var currentMoneyMachine in stock)
+        foreach (var currentMoneyMachine in stockOrder)
         {
             var quantityToWithdraw = QuantityToWithdraw(quantity, currentMoneyMachine);
 
