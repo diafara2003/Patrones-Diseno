@@ -73,14 +73,21 @@ public class GameOfLife
 
     public void NextGen()
     {
+        var nextGen = new bool[_rows, _cells];
         for (var row = 0; row < _rows; row++)
         {
             for (var cell = 0; cell < _cells; cell++)
             {
                 var count = CountNeighbor(row, cell);
-                if (IsALive(row, cell) && count < 2)
-                    _grid[row, cell] = false;
+
+                //regla 1. muere por infrapoblacion <2
+                //regla 2. vive por sobrevivencia 2 o 3
+
+
+                nextGen[row, cell] = IsALive(row, cell) && (count is 2 or 3);
             }
         }
+
+        Array.Copy(nextGen, _grid, nextGen.Length);
     }
 }
