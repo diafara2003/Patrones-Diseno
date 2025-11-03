@@ -51,6 +51,17 @@ public class GameOfLiveTest
         var caller = () => gameOfLive.SetAlive(4, 4);
 
         //Assert
-        caller.Should().ThrowExactly<IndexOutOfRangeException>().WithMessage("el valor de las celdas debe estar dentro de los limites row:3-cell:3");
+        caller.Should().ThrowExactly<IndexOutOfRangeException>()
+            .WithMessage("el valor de las celdas debe estar dentro de los limites row:3-cell:3");
+    }
+
+    [Fact]
+    public void AlIniciarElJuego_Debe_SerPositivoRowsYCells()
+    {
+        //Arrange
+        var caller = () => new GameOfLife(-1, -1);
+
+        caller.Should().ThrowExactly<IndexOutOfRangeException>()
+            .WithMessage("Los valores de las celdas deben ser mayores a cero");
     }
 }
