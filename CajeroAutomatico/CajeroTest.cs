@@ -8,7 +8,7 @@ public class CajeroTest
     public void Retirar_CantidadCero_RegresaListaVacia()
     {
         //Arrange
-        var cajero = new ATMMachine();
+        var cajero = new AtmMachine();
 
         //Act
         var resultado = cajero.Withdraw(0);
