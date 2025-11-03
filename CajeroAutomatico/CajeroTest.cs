@@ -86,4 +86,17 @@ public class CajeroTest
             new Money(5, TipoMoney.bill, 1),
         });
     }
+
+    [Fact]
+    public void Retirar_1200_SinSuficientesBilletes_DeberiaFallar()
+    {
+        //Arrange
+        var cajero = new AtmMachine();
+
+        //Act
+        var caller = () => cajero.Withdraw(1200);
+
+        //Assert
+        caller.Should().Throw<InvalidOperationException>();
+    }
 }
