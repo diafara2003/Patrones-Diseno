@@ -74,7 +74,7 @@ public class GameOfLiveTest
         gameOfLive.SetAlive(0, 2);
 
         //act
-        var vecinos = gameOfLive.CountNeighbor(1, 1);
+        var vecinos = gameOfLive.CountNeighbor(0, 1);
 
         //assert
         vecinos.Should().Be(1);
@@ -87,11 +87,56 @@ public class GameOfLiveTest
         var gameOfLive = new GameOfLife(3, 3);
         gameOfLive.SetAlive(1, 1); //centro
         gameOfLive.SetAlive(0, 1);
-        
+
         //act
-        var vecinos = gameOfLive.CountNeighbor(2, 2);
-        
+        var vecinos = gameOfLive.CountNeighbor(1, 1);
+
+        //assert
+        vecinos.Should().Be(1);
+    }
+
+    public static IEnumerable<object[]> GetNeighborTestData()
+    {
+        yield return
+        [
+            //Vecino arriba,
+            new SizeGrid(3, 3),
+            new Alive(1, 1),
+            new Neighbor(0, 1)
+        ];
+        yield return
+        [
+            //Vecino A la derecha,
+            new SizeGrid(3, 3),
+            new Alive(0, 1),
+            new Neighbor(0, 2)
+        ];
+    }
+
+
+    [Theory]
+    [MemberData(nameof(GetNeighborTestData))]
+    public void ValidarVecinosCelulaViva(SizeGrid size, Alive alive, Neighbor neighbor)
+    {
+        //arrange
+        var gameOfLive = new GameOfLife(size.row, size.col);
+        gameOfLive.SetAlive(alive.row, alive.col); //centro
+        gameOfLive.SetAlive(neighbor.row, neighbor.col);
+
+        //act
+        var vecinos = gameOfLive.CountNeighbor(alive.row, alive.col);
+
         //assert
         vecinos.Should().Be(1);
     }
 }
+
+public interface IGameOfLife
+{
+}
+
+public record SizeGrid(int row, int col) : IGameOfLife;
+
+public record Alive(int row, int col) : IGameOfLife;
+
+public record Neighbor(int row, int col) : IGameOfLife;

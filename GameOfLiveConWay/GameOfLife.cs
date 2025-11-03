@@ -29,11 +29,12 @@ public class GameOfLife
         var initialCell = cell - 1;
         var finalRow = row + 1;
         var finalCell = cell + 1;
-        for (var r = initialRow; r < finalRow; r++)
+        for (var r = initialRow; r <= finalRow; r++)
         {
-            for (var c = initialCell; c < finalCell; c++)
+            if (IsBoundContext(r)) continue;
+            for (var c = initialCell; c <= finalCell; c++)
             {
-                if (r == row && c == cell)
+                if (IsBoundContext(c) || IsSkipCurrentCell(row, cell, r, c))
                     continue;
 
                 if (IsALive(r, c))
@@ -43,6 +44,17 @@ public class GameOfLife
 
 
         return count;
+    }
+
+    private static bool IsBoundContext(int position)
+    {
+        return position <= -1;
+    }
+
+
+    private bool IsSkipCurrentCell(int row, int cell, int r, int c)
+    {
+        return r == row && c == cell;
     }
 
     public void SetAlive(int row, int cell)
