@@ -28,4 +28,16 @@ public class GameOfLiveTest
 
         vecinos.Should().Be(0);
     }
+
+    [Fact]
+    public void EstablecerCeldaViva()
+    {
+        //Arrange
+        var gameOfLive = new GameOfLife(3, 3);
+        
+        //Act
+        gameOfLive.SetAlive(1,1);
+        
+        gameOfLive.IsALive(1,1).Should().BeTrue();
+    }
 }

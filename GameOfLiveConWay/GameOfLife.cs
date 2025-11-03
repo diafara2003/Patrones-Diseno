@@ -13,6 +13,11 @@ public class GameOfLife(int rows, int cells)
 
     public int CountNeighbor(int row, int cell)
     {
+        return 0;
+    }
+
+    public void SetAlive(int row, int cell)
+    {
         throw new NotImplementedException();
     }
 }
