@@ -16,4 +16,18 @@ public class CajeroTest
         //Assert
         resultado.Should().BeEmpty();
     }
+
+    [Fact]
+    public void Retirar500_Debe_RegresarUnBilleteDe500()
+    {
+        //Arrange
+        var cajero = new AtmMachine();
+
+        //Act
+        var resultado = cajero.Withdraw(500);
+
+        //Assert
+
+        resultado.Should().BeEquivalentTo(new List<int> { 500 });
+    }
 }
