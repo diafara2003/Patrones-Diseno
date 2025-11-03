@@ -70,8 +70,8 @@ public class GameOfLiveTest
     {
         //arrange
         var gameOfLive = new GameOfLife(3, 3);
-        gameOfLive.SetAlive(1, 1);
-        gameOfLive.SetAlive(1, 2);
+        gameOfLive.SetAlive(0, 1);
+        gameOfLive.SetAlive(0, 2);
 
         //act
         var vecinos = gameOfLive.CountNeighbor(1, 1);
@@ -85,12 +85,12 @@ public class GameOfLiveTest
     {
         //arrange
         var gameOfLive = new GameOfLife(3, 3);
-        gameOfLive.SetAlive(2, 2); //centro
-        gameOfLive.SetAlive(2, 1);
-
+        gameOfLive.SetAlive(1, 1); //centro
+        gameOfLive.SetAlive(0, 1);
+        
         //act
         var vecinos = gameOfLive.CountNeighbor(2, 2);
-
+        
         //assert
         vecinos.Should().Be(1);
     }

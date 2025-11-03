@@ -29,10 +29,13 @@ public class GameOfLife
         var initialCell = cell - 1;
         var finalRow = row + 1;
         var finalCell = cell + 1;
-        for (var r = initialRow; r <= finalRow; r++)
+        for (var r = initialRow; r < finalRow; r++)
         {
             for (var c = initialCell; c < finalCell; c++)
             {
+                if (r == row && c == cell)
+                    continue;
+
                 if (IsALive(r, c))
                     count++;
             }
