@@ -65,36 +65,6 @@ public class GameOfLiveTest
             .WithMessage("Los valores de las celdas deben ser mayores a cero");
     }
 
-    [Fact]
-    public void DosCelulasVivasSeguidasALaDerecha_Debe_RetornarContarVecinos1()
-    {
-        //arrange
-        var gameOfLive = new GameOfLife(3, 3);
-        gameOfLive.SetAlive(0, 1);
-        gameOfLive.SetAlive(0, 2);
-
-        //act
-        var vecinos = gameOfLive.CountNeighbor(0, 1);
-
-        //assert
-        vecinos.Should().Be(1);
-    }
-
-    [Fact]
-    public void UnaCelulavivaEnElCentroYOtraArribaViva_Debe_RetornarCountNeighbor1()
-    {
-        //arrange
-        var gameOfLive = new GameOfLife(3, 3);
-        gameOfLive.SetAlive(1, 1); //centro
-        gameOfLive.SetAlive(0, 1);
-
-        //act
-        var vecinos = gameOfLive.CountNeighbor(1, 1);
-
-        //assert
-        vecinos.Should().Be(1);
-    }
-
     public static IEnumerable<object[]> GetNeighborTestData()
     {
         yield return
@@ -128,6 +98,20 @@ public class GameOfLiveTest
 
         //assert
         vecinos.Should().Be(1);
+    }
+
+    [Fact]
+    public void ValidarLimitesCountNeighbor()
+    {
+        //arrange
+        var gameOfLive = new GameOfLife(3, 3);
+        gameOfLive.SetAlive(0, 2); //centro
+
+        //act
+        var vecinos = gameOfLive.CountNeighbor(0, 2);
+
+        //assert
+        vecinos.Should().Be(0);
     }
 }
 

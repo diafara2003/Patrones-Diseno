@@ -31,10 +31,10 @@ public class GameOfLife
         var finalCell = cell + 1;
         for (var r = initialRow; r <= finalRow; r++)
         {
-            if (IsBoundContext(r)) continue;
+            if (IsBoundContext(r, _rows)) continue;
             for (var c = initialCell; c <= finalCell; c++)
             {
-                if (IsBoundContext(c) || IsSkipCurrentCell(row, cell, r, c))
+                if (IsBoundContext(c, _cells) || IsSkipCurrentCell(row, cell, r, c))
                     continue;
 
                 if (IsALive(r, c))
@@ -46,9 +46,9 @@ public class GameOfLife
         return count;
     }
 
-    private static bool IsBoundContext(int position)
+    private static bool IsBoundContext(int position, int limit)
     {
-        return position <= -1;
+        return position <= -1 || position >= limit;
     }
 
 
