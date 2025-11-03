@@ -4,11 +4,13 @@ public class ATMMachine : IAtm
 {
     public List<Money> Withdraw(int quantity)
     {
-        throw new NotImplementedException();
+        return [];
     }
 
     public List<Money> GetBalance()
     {
-        throw new NotImplementedException();
+        return [];
     }
+
+  
 }

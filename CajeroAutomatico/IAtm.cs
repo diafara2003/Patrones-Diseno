@@ -1,6 +1,6 @@
 namespace CajeroAutomatico;
 
-public record Money(int value, TipoMoney typeMoney);
+public record Money(int value, TipoMoney typeMoney, int quantity);
 
 public enum TipoMoney
 {
