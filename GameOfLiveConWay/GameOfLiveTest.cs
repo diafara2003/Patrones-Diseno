@@ -67,19 +67,33 @@ public class GameOfLiveTest
 
     public static IEnumerable<object[]> GetNeighborTestData()
     {
+        //Vecino arriba,
         yield return
         [
-            //Vecino arriba,
             new SizeGrid(3, 3),
             new Alive(1, 1),
             new Neighbor(0, 1)
         ];
+        //Vecino abajo,
         yield return
         [
-            //Vecino A la derecha,
+            new SizeGrid(3, 3),
+            new Alive(1, 1),
+            new Neighbor(2, 1)
+        ];
+        //Vecino A la derecha,
+        yield return
+        [
             new SizeGrid(3, 3),
             new Alive(0, 1),
             new Neighbor(0, 2)
+        ];
+        //Vecino A la izquierda,
+        yield return
+        [
+            new SizeGrid(3, 3),
+            new Alive(1, 1),
+            new Neighbor(0, 0)
         ];
     }
 
