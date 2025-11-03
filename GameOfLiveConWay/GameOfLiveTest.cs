@@ -16,4 +16,16 @@ public class GameOfLiveTest
         //Assert
         isALive.Should().BeFalse();
     }
+
+    [Fact]
+    public void ContarVecinos_EnTableroVacio_DebeSerCero()
+    {
+        //Arrange
+        var gameOfLive = new GameOfLife(3, 3);
+        
+        //Act
+        var vecinos = gameOfLive.CountNeighbor(1,1);
+
+        vecinos.Should().Be(0);
+    }
 }
