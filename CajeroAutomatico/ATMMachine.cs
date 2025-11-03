@@ -44,7 +44,9 @@ public class AtmMachine : IAtm
 
     private int RetrieveBillCount(Money ammount)
     {
-        return _stock.Find(c => c.value == ammount.value && c.typeMoney == ammount.typeMoney)?.quantity ??
+        return _stock.Find(moneyItem => moneyItem.value == ammount.value
+                                        && moneyItem.typeMoney == ammount.typeMoney)
+                   ?.quantity ??
                0;
     }
 
@@ -66,7 +68,7 @@ public class AtmMachine : IAtm
             new Money(10, TipoMoney.bill, 50),
             new Money(5, TipoMoney.bill, 100),
             new Money(2, TipoMoney.coin, 250),
-            new Money(1, TipoMoney.bill, 500),
+            // new Money(1, TipoMoney.bill, 500),
         ];
     }
 }

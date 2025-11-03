@@ -94,9 +94,22 @@ public class CajeroTest
         var cajero = new AtmMachine();
 
         //Act
-        var caller = () => cajero.Withdraw(2000);
+        Action caller = () => cajero.Withdraw(2000);
 
         //Assert
-        caller.Should().Throw<InvalidOperationException>();
+        caller.Should().Throw<InvalidOperationException>().WithMessage("No hay suficiente cantidad de billetes");
+    }
+
+    [Fact]
+    public void Retirar_MontoNoCombinableConStock_DeberiaLanzarExcepcion()
+    {
+        //Arrange
+        var cajero = new AtmMachine();
+
+        //Act
+        Action caller = () => cajero.Withdraw(3);
+
+        //Assert
+        caller.Should().Throw<InvalidOperationException>().WithMessage("El cajero automático no dispone de dinero suficiente, por favor acuda al cajero automático más cercano");
     }
 }

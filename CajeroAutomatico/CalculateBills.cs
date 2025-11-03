@@ -2,11 +2,15 @@ namespace CajeroAutomatico;
 
 public class CalculateBills
 {
-   
-
     public List<Money> CalculateWithdraw(int quantity, List<Money> stock)
     {
         var result = new List<Money>();
+
+        var stockOrder = stock
+            .Where(money => money.quantity > 0)
+            .OrderByDescending(money => money.value)
+            .ToList();
+
 
         foreach (var currentMoneyMachine in stock)
         {
@@ -18,6 +22,10 @@ public class CalculateBills
             result.Add(currentMoneyMachine with { quantity = quantityToWithdraw });
             quantity -= CalculateRemainingQuantity(quantityToWithdraw, currentMoneyMachine);
         }
+
+        if (quantity > 0)
+            throw new InvalidOperationException(
+                "El cajero automático no dispone de dinero suficiente, por favor acuda al cajero automático más cercano");
 
         return result;
     }
@@ -36,6 +44,4 @@ public class CalculateBills
     {
         return quantity / currentMoneyMachine.value;
     }
-
-  
 }
