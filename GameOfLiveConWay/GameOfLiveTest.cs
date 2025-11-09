@@ -24,7 +24,7 @@ public class GameOfLiveTest
         var gameOfLive = new GameOfLife(3, 3);
 
         //Act
-        var vecinos = gameOfLive.CountAliveNeighbours(1, 1);
+        var vecinos = gameOfLive.CountNeighborAlive(1, 1);
 
         vecinos.Should().Be(0);
     }
@@ -36,7 +36,7 @@ public class GameOfLiveTest
         var gameOfLive = new GameOfLife(3, 3);
 
         //Act
-        gameOfLive.SetAlive(1, 1);
+        gameOfLive.SetCellAlive(1, 1);
 
         gameOfLive.IsALive(1, 1).Should().BeTrue();
     }
@@ -48,7 +48,7 @@ public class GameOfLiveTest
         var gameOfLive = new GameOfLife(3, 3);
 
         //Act
-        var caller = () => gameOfLive.SetAlive(4, 4);
+        var caller = () => gameOfLive.SetCellAlive(4, 4);
 
         //Assert
         caller.Should().ThrowExactly<IndexOutOfRangeException>()
@@ -65,64 +65,64 @@ public class GameOfLiveTest
             .WithMessage("Los valores de las celdas deben ser mayores a cero");
     }
 
-    public static IEnumerable<object[]> GetNeighborTestData()
+    public static IEnumerable<object[]> GetCoordenadaTestData()
     {
         //Vecino arriba,
         yield return
         [
             new SizeGrid(3, 3),
             new Alive(1, 1),
-            new Neighbor(0, 1)
+            new Coordenada(0, 1)
         ];
         //Vecino abajo,
         yield return
         [
             new SizeGrid(3, 3),
             new Alive(1, 1),
-            new Neighbor(2, 1)
+            new Coordenada(2, 1)
         ];
         //Vecino A la derecha,
         yield return
         [
             new SizeGrid(3, 3),
             new Alive(0, 1),
-            new Neighbor(0, 2)
+            new Coordenada(0, 2)
         ];
         //Vecino A la izquierda,
         yield return
         [
             new SizeGrid(3, 3),
             new Alive(1, 1),
-            new Neighbor(0, 0)
+            new Coordenada(0, 0)
         ];
     }
 
 
     [Theory]
-    [MemberData(nameof(GetNeighborTestData))]
-    public void ValidarVecinosCelulaViva(SizeGrid size, Alive alive, Neighbor neighbor)
+    [MemberData(nameof(GetCoordenadaTestData))]
+    public void ValidarVecinosCelulaViva(SizeGrid size, Alive alive, Coordenada Coordenada)
     {
         //arrange
         var gameOfLive = new GameOfLife(size.row, size.col);
-        gameOfLive.SetAlive(alive.row, alive.col); //centro
-        gameOfLive.SetAlive(neighbor.row, neighbor.col);
+        gameOfLive.SetCellAlive(alive.row, alive.col); //centro
+        gameOfLive.SetCellAlive(Coordenada.row, Coordenada.col);
 
         //act
-        var vecinos = gameOfLive.CountAliveNeighbours(alive.row, alive.col);
+        var vecinos = gameOfLive.CountNeighborAlive(alive.row, alive.col);
 
         //assert
         vecinos.Should().Be(1);
     }
 
     [Fact]
-    public void ValidarLimitesCountNeighbor()
+    public void ValidarLimitesCountCoordenada()
     {
         //arrange
         var gameOfLive = new GameOfLife(3, 3);
-        gameOfLive.SetAlive(0, 2); //centro
+        gameOfLive.SetCellAlive(0, 2); //centro
 
         //act
-        var vecinos = gameOfLive.CountAliveNeighbours(0, 2);
+        var vecinos = gameOfLive.CountNeighborAlive(0, 2);
 
         //assert
         vecinos.Should().Be(0);
@@ -133,7 +133,7 @@ public class GameOfLiveTest
     {
         //Arrange
         var gameOfLive = new GameOfLife(3, 3);
-        gameOfLive.SetAlive(0, 0); //centro
+        gameOfLive.SetCellAlive(0, 0); //centro
 
         //Act
         gameOfLive.NextGen();
@@ -147,9 +147,9 @@ public class GameOfLiveTest
     {
         //Arrange
         var gameOfLive = new GameOfLife(3, 3);
-        gameOfLive.SetAlive(1, 1); //celula viva
-        gameOfLive.SetAlive(1, 0); //venino
-        gameOfLive.SetAlive(1, 2); //vecino
+        gameOfLive.SetCellAlive(1, 1); //celula viva
+        gameOfLive.SetCellAlive(1, 0); //venino
+        gameOfLive.SetCellAlive(1, 2); //vecino
 
         //Act
         gameOfLive.NextGen();
@@ -163,8 +163,8 @@ public class GameOfLiveTest
     {
         //Arrange
         var gameOfLive = new GameOfLife(3, 3);
-        gameOfLive.SetAlive(1, 1); //celula viva
-        gameOfLive.SetAlive(1, 0); //venino
+        gameOfLive.SetCellAlive(1, 1); //celula viva
+        gameOfLive.SetCellAlive(1, 0); //venino
 
         //Act
         gameOfLive.NextGen();
@@ -178,14 +178,14 @@ public class GameOfLiveTest
     {
         //Arrange
         var gameOfLive = new GameOfLife(3, 3);
-         gameOfLive.SetAlive(1, 1);
-         gameOfLive.SetAlive(1, 0);
-         gameOfLive.SetAlive(1, 2);
-         gameOfLive.NextGen();
-        
+        gameOfLive.SetCellAlive(1, 1);
+        gameOfLive.SetCellAlive(1, 0);
+        gameOfLive.SetCellAlive(1, 2);
+        gameOfLive.NextGen();
+
         //Act
         gameOfLive.NextGen();
-        
+
         //Arrange
         gameOfLive.IsALive(1, 1).Should().BeTrue();
     }
@@ -195,4 +195,4 @@ public record SizeGrid(int row, int col);
 
 public record Alive(int row, int col);
 
-public record Neighbor(int row, int col);
+public record Coordenada(int row, int col);
