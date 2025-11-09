@@ -53,7 +53,7 @@ public class GameOfLife
 
     private void ThrowIfCellIndexOutOfRange(int row, int cell)
     {
-        if (row > _rows && cell > _cells)
+        if (row < 0 || row >= _rows || cell < 0 || cell >= _cells)
             throw new IndexOutOfRangeException(
                 $"El valor de las celdas debe estar dentro de los limites row:{_rows}-cell:{_cells}");
     }
