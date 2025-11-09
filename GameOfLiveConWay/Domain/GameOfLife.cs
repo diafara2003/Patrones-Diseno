@@ -12,7 +12,7 @@ public class GameOfLife
 
         _rows = rows;
         _cells = cells;
-        _grid = FillGridInitial(rows, cells);
+        _grid = InitializeGrid(rows, cells);
     }
 
     private void ThrowArgumentInvalid(int rows, int cells)
@@ -93,7 +93,7 @@ public class GameOfLife
         return count;
     }
 
-    private Cell[,] FillGridInitial(int rows, int cells)
+    private Cell[,] InitializeGrid(int rows, int cells)
     {
         var grid = new Cell[rows, cells];
 
