@@ -34,7 +34,7 @@ public class GameOfLife
             {
                 var aliveNeighbours = CountNeighborAlive(row, cell);
 
-                ICell current = CurrentStateCell(row, cell);
+                var current = _grid[row, cell];
 
                 var newCellState = current.NextState(aliveNeighbours);
                 newGrid[row, cell] = newCellState;
@@ -53,16 +53,9 @@ public class GameOfLife
 
     private void ThrowIfCellIndexOutOfRange(int row, int cell)
     {
-        if (row < 0 || row >= _rows || cell < 0 || cell >= _cells)
+        if (ValidateCellIndex(row, cell))
             throw new IndexOutOfRangeException(
                 $"El valor de las celdas debe estar dentro de los limites row:{_rows}-cell:{_cells}");
-    }
-
-    private ICell CurrentStateCell(int row, int cell)
-    {
-        return _grid[row, cell].IsAlive
-            ? new AliveCell()
-            : new DeadCell();
     }
 
 
@@ -117,6 +110,7 @@ public class GameOfLife
     private bool IsSamePosition(int targetRow, int currentRow, int targetCell, int currentCell) =>
         currentRow == targetRow && currentCell == targetCell;
 
+    private bool ValidateCellIndex(int row, int cell) => row < 0 || row >= _rows || cell < 0 || cell >= _cells;
 
     private bool IsPositionOutside(int position, int limit) => position <= -1 || position >= limit;
 
