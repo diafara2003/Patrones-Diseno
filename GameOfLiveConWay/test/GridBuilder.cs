@@ -2,12 +2,15 @@ namespace GameOfLiveConWay;
 
 public class GridBuilder
 {
-    private ICell[,] _grid;
+    private readonly ICell[,] _grid;
 
+    public GridBuilder(int rows, int cells)
+    {
+        _grid = CreateGrid(rows, cells);
+    }
 
     public GridBuilder WithGrid(int rows, int cells)
     {
-        _grid = CreateGrid(rows, cells);
         return this;
     }
 

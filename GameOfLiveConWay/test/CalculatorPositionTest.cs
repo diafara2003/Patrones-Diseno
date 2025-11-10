@@ -9,10 +9,9 @@ public class CalculatorPositionTest
     public void ValidarVecinosCelulaViva(SizeGrid size, Alive alive, Coordenada Coordenada)
     {
         //arrange
-        var gridBuilder = new GridBuilder();
+        var gridBuilder = new GridBuilder(size.row, size.col);
         var calculator = gridBuilder
-            .WithGrid(size.row, size.col) 
-            .WithCellAlive(alive.row, alive.row)//centro
+            .WithCellAlive(alive.row, alive.row) //centro
             .WithCellAlive(Coordenada.row, Coordenada.row)
             .Build();
 
@@ -28,9 +27,8 @@ public class CalculatorPositionTest
     public void ValidarLimitesCountCoordenada()
     {
         //arrange
-        var gridBuilder = new GridBuilder();
+        var gridBuilder = new GridBuilder(3, 3);
         var calculator = gridBuilder
-            .WithGrid(3, 3) //centro
             .WithCellAlive(0, 2)
             .Build();
 
@@ -45,9 +43,8 @@ public class CalculatorPositionTest
     public void ContarVecinos_EnTableroVacio_DebeSerCero()
     {
         //Arrange
-        var gridBuilder = new GridBuilder();
+        var gridBuilder = new GridBuilder(3, 3);
         var calculator = gridBuilder
-            .WithGrid(3, 3) //centro
             .WithCellAlive(1, 1)
             .Build();
 
