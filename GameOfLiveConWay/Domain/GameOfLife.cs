@@ -16,12 +16,6 @@ public class GameOfLife
     }
 
 
-    private void ThrowArgumentInvalid(int rows, int cells)
-    {
-        if (IsInvalidGrid(rows, cells))
-            throw new IndexOutOfRangeException("Los valores de las celdas deben ser mayores a cero");
-    }
-
     public bool IsALive(int row, int cell) => _grid[row, cell].IsAlive;
 
 
@@ -57,6 +51,12 @@ public class GameOfLife
         if (ValidateCellIndex(row, cell))
             throw new IndexOutOfRangeException(
                 $"El valor de las celdas debe estar dentro de los limites row:{_rows}-cell:{_cells}");
+    }
+    
+    private void ThrowArgumentInvalid(int rows, int cells)
+    {
+        if (IsInvalidGrid(rows, cells))
+            throw new IndexOutOfRangeException("Los valores de las celdas deben ser mayores a cero");
     }
 
 
