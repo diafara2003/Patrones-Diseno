@@ -1,6 +1,6 @@
 namespace GameOfLiveConWay;
 
-public class Cell(ICellState state)
+public class Cell(ICell state)
 {
     public bool IsAlive => state.IsAlive;
 }

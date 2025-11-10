@@ -34,9 +34,9 @@ public class GameOfLife
             {
                 var aliveNeighbours = CountNeighborAlive(row, cell);
 
-                ICellState currentState = CurrentStateCell(row, cell);
+                ICell current = CurrentStateCell(row, cell);
 
-                var newCellState = currentState.NextState(aliveNeighbours);
+                var newCellState = current.NextState(aliveNeighbours);
                 newGrid[row, cell] = new Cell(newCellState);
             }
         }
@@ -48,7 +48,7 @@ public class GameOfLife
     {
         ThrowIfCellIndexOutOfRange(row, cell);
 
-        _grid[row, cell] = new Cell(new AliveState());
+        _grid[row, cell] = new Cell(new AliveCell());
     }
 
     private void ThrowIfCellIndexOutOfRange(int row, int cell)
@@ -58,11 +58,11 @@ public class GameOfLife
                 $"El valor de las celdas debe estar dentro de los limites row:{_rows}-cell:{_cells}");
     }
 
-    private ICellState CurrentStateCell(int row, int cell)
+    private ICell CurrentStateCell(int row, int cell)
     {
         return _grid[row, cell].IsAlive
-            ? new AliveState()
-            : new DeadState();
+            ? new AliveCell()
+            : new DeadCell();
     }
 
 
@@ -101,7 +101,7 @@ public class GameOfLife
         {
             for (var cell = 0; cell < cells; cell++)
             {
-                grid[row, cell] = new Cell(new DeadState());
+                grid[row, cell] = new Cell(new DeadCell());
             }
         }
 
