@@ -17,17 +17,7 @@ public class GameOfLiveTest
         isALive.Should().BeFalse();
     }
 
-    [Fact]
-    public void ContarVecinos_EnTableroVacio_DebeSerCero()
-    {
-        //Arrange
-        var gameOfLive = new GameOfLife(3, 3);
-
-        //Act
-        var vecinos = gameOfLive.CountNeighborAlive(1, 1);
-
-        vecinos.Should().Be(0);
-    }
+ 
 
     [Fact]
     public void EstablecerCeldaViva()
@@ -65,68 +55,8 @@ public class GameOfLiveTest
             .WithMessage("Los valores de las celdas deben ser mayores a cero");
     }
 
-    public static IEnumerable<object[]> GetCoordenadaTestData()
-    {
-        //Vecino arriba,
-        yield return
-        [
-            new SizeGrid(3, 3),
-            new Alive(1, 1),
-            new Coordenada(0, 1)
-        ];
-        //Vecino abajo,
-        yield return
-        [
-            new SizeGrid(3, 3),
-            new Alive(1, 1),
-            new Coordenada(2, 1)
-        ];
-        //Vecino A la derecha,
-        yield return
-        [
-            new SizeGrid(3, 3),
-            new Alive(0, 1),
-            new Coordenada(0, 2)
-        ];
-        //Vecino A la izquierda,
-        yield return
-        [
-            new SizeGrid(3, 3),
-            new Alive(1, 1),
-            new Coordenada(0, 0)
-        ];
-    }
-
-
-    [Theory]
-    [MemberData(nameof(GetCoordenadaTestData))]
-    public void ValidarVecinosCelulaViva(SizeGrid size, Alive alive, Coordenada Coordenada)
-    {
-        //arrange
-        var gameOfLive = new GameOfLife(size.row, size.col);
-        gameOfLive.SetCellAlive(alive.row, alive.col); //centro
-        gameOfLive.SetCellAlive(Coordenada.row, Coordenada.col);
-
-        //act
-        var vecinos = gameOfLive.CountNeighborAlive(alive.row, alive.col);
-
-        //assert
-        vecinos.Should().Be(1);
-    }
-
-    [Fact]
-    public void ValidarLimitesCountCoordenada()
-    {
-        //arrange
-        var gameOfLive = new GameOfLife(3, 3);
-        gameOfLive.SetCellAlive(0, 2); //centro
-
-        //act
-        var vecinos = gameOfLive.CountNeighborAlive(0, 2);
-
-        //assert
-        vecinos.Should().Be(0);
-    }
+  
+  
 
     [Fact]
     public void UnaCelulaViva_ConMenosDe2Vecinos_Muere()

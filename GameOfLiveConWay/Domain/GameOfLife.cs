@@ -5,7 +5,7 @@ public class GameOfLife
     private readonly ICell[,] _grid;
     private readonly int _rows;
     private readonly int _cells;
-
+   
     public GameOfLife(int rows, int cells)
     {
         ThrowArgumentInvalid(rows, cells);
@@ -14,6 +14,7 @@ public class GameOfLife
         _cells = cells;
         _grid = InitializeGrid(rows, cells);
     }
+
 
     private void ThrowArgumentInvalid(int rows, int cells)
     {
@@ -27,12 +28,12 @@ public class GameOfLife
     public void NextGen()
     {
         var newGrid = new ICell[_rows, _cells];
-
+       
         for (var row = 0; row < _rows; row++)
         {
             for (var cell = 0; cell < _cells; cell++)
             {
-                var aliveNeighbours = CountNeighborAlive(row, cell);
+                var aliveNeighbours = _grid.CountNeighborAlive(row, cell);
 
                 var current = _grid[row, cell];
 
@@ -59,33 +60,6 @@ public class GameOfLife
     }
 
 
-    public int CountNeighborAlive(int row, int cell)
-    {
-        var count = 0;
-        var position = new Coordinate(row, cell);
-
-        var positionRow = position.CalculateLimit(row);
-        var positionCell = position.CalculateLimit(cell);
-
-        for (var rowPosition = positionRow.X; rowPosition <= positionRow.Y; rowPosition++)
-        {
-            if (IsPositionOutside(rowPosition, _rows))
-                continue;
-
-            for (var cellPosition = positionCell.X; cellPosition <= positionCell.Y; cellPosition++)
-            {
-                if (ShouldSkipCell(row, rowPosition, cell, cellPosition))
-                    continue;
-
-                if (IsALive(rowPosition, cellPosition))
-                    count++;
-            }
-        }
-
-
-        return count;
-    }
-
     private ICell[,] InitializeGrid(int rows, int cells)
     {
         var grid = new ICell[rows, cells];
@@ -101,18 +75,7 @@ public class GameOfLife
         return grid;
     }
 
-    private bool ShouldSkipCell(int targetRow, int currentRow, int targetCell, int currentCell)
-    {
-        return IsPositionOutside(currentCell, _cells) ||
-               IsSamePosition(targetRow, currentRow, targetCell, currentCell);
-    }
-
-    private bool IsSamePosition(int targetRow, int currentRow, int targetCell, int currentCell) =>
-        currentRow == targetRow && currentCell == targetCell;
-
     private bool ValidateCellIndex(int row, int cell) => row < 0 || row >= _rows || cell < 0 || cell >= _cells;
-
-    private bool IsPositionOutside(int position, int limit) => position <= -1 || position >= limit;
 
     private bool IsInvalidGrid(int row, int cell) => row <= 0 || cell <= 0;
 }
