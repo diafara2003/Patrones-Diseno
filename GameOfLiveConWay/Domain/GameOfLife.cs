@@ -2,7 +2,7 @@ namespace GameOfLiveConWay;
 
 public class GameOfLife
 {
-    private readonly Cell[,] _grid;
+    private readonly ICell[,] _grid;
     private readonly int _rows;
     private readonly int _cells;
 
@@ -26,7 +26,7 @@ public class GameOfLife
 
     public void NextGen()
     {
-        var newGrid = new Cell[_rows, _cells];
+        var newGrid = new ICell[_rows, _cells];
 
         for (var row = 0; row < _rows; row++)
         {
@@ -37,7 +37,7 @@ public class GameOfLife
                 ICell current = CurrentStateCell(row, cell);
 
                 var newCellState = current.NextState(aliveNeighbours);
-                newGrid[row, cell] = new Cell(newCellState);
+                newGrid[row, cell] = newCellState;
             }
         }
 
@@ -48,7 +48,7 @@ public class GameOfLife
     {
         ThrowIfCellIndexOutOfRange(row, cell);
 
-        _grid[row, cell] = new Cell(new AliveCell());
+        _grid[row, cell] = new AliveCell();
     }
 
     private void ThrowIfCellIndexOutOfRange(int row, int cell)
@@ -93,15 +93,15 @@ public class GameOfLife
         return count;
     }
 
-    private Cell[,] InitializeGrid(int rows, int cells)
+    private ICell[,] InitializeGrid(int rows, int cells)
     {
-        var grid = new Cell[rows, cells];
+        var grid = new ICell[rows, cells];
 
         for (var row = 0; row < rows; row++)
         {
             for (var cell = 0; cell < cells; cell++)
             {
-                grid[row, cell] = new Cell(new DeadCell());
+                grid[row, cell] = new DeadCell();
             }
         }
 
