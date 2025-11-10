@@ -9,15 +9,15 @@ public class CalculatorPositionTest
     public void ValidarVecinosCelulaViva(SizeGrid size, Alive alive, Coordenada Coordenada)
     {
         //arrange
-        var gridBuilder = new GridBuilder(size.row, size.col);
+        var gridBuilder = new GridBuilder(size.Row, size.Col);
         var calculator = gridBuilder
-            .WithCellAlive(alive.row, alive.row) //centro
-            .WithCellAlive(Coordenada.row, Coordenada.row)
+            .WithCellAlive(alive.Row, alive.Row) //centro
+            .WithCellAlive(Coordenada.Row, Coordenada.Row)
             .Build();
 
 
         //act
-        var vecinos = calculator.CountNeighborAlive(alive.row, alive.col);
+        var vecinos = calculator.CountNeighborAlive(alive.Row, alive.Col);
 
         //assert
         vecinos.Should().Be(1);
@@ -86,3 +86,9 @@ public class CalculatorPositionTest
         ];
     }
 }
+
+public record SizeGrid(int Row, int Col);
+
+public record Alive(int Row, int Col);
+
+public record Coordenada(int Row, int Col);

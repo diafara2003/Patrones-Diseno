@@ -121,8 +121,3 @@ public class GameOfLiveTest
     }
 }
 
-public record SizeGrid(int row, int col);
-
-public record Alive(int row, int col);
-
-public record Coordenada(int row, int col);
