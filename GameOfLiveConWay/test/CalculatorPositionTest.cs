@@ -11,8 +11,8 @@ public class CalculatorPositionTest
         //arrange
         var gridBuilder = new GridBuilder();
         var calculator = gridBuilder
-            .WithGrid(size.row, size.col) //centro
-            .WithCellAlive(alive.row, alive.row)
+            .WithGrid(size.row, size.col) 
+            .WithCellAlive(alive.row, alive.row)//centro
             .WithCellAlive(Coordenada.row, Coordenada.row)
             .Build();
 
