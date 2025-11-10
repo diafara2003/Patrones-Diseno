@@ -62,17 +62,17 @@ public class GameOfLife
     public int CountNeighborAlive(int row, int cell)
     {
         var count = 0;
-        var position = new Position(row, cell);
+        var position = new Coordinate(row, cell);
 
-        var positionRow = position.GetPosition(row);
-        var positionCell = position.GetPosition(cell);
+        var positionRow = position.CalculateLimit(row);
+        var positionCell = position.CalculateLimit(cell);
 
-        for (var rowPosition = positionRow.Min; rowPosition <= positionRow.Max; rowPosition++)
+        for (var rowPosition = positionRow.X; rowPosition <= positionRow.Y; rowPosition++)
         {
             if (IsPositionOutside(rowPosition, _rows))
                 continue;
 
-            for (var cellPosition = positionCell.Min; cellPosition <= positionCell.Max; cellPosition++)
+            for (var cellPosition = positionCell.X; cellPosition <= positionCell.Y; cellPosition++)
             {
                 if (ShouldSkipCell(row, rowPosition, cell, cellPosition))
                     continue;
