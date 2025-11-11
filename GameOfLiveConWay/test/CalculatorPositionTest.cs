@@ -6,13 +6,13 @@ public class CalculatorPositionTest
 {
     [Theory]
     [MemberData(nameof(GetCoordenadaTestData))]
-    public void ValidarVecinosCelulaViva(SizeGrid size, Alive alive, Coordenada Coordenada)
+    public void ValidarVecinosCelulaViva(SizeGrid size, Alive alive, Coordenada coordenada)
     {
         //arrange
         var gridBuilder = new GridBuilder(size.Row, size.Col);
         var calculator = gridBuilder
-            .WithCellAlive(alive.Row, alive.Row) //centro
-            .WithCellAlive(Coordenada.Row, Coordenada.Row)
+            .WithCellAlive(alive.Row, alive.Row) 
+            .WithCellAlive(coordenada.Row, coordenada.Row)
             .Build();
 
 

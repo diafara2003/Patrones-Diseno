@@ -1,15 +1,15 @@
 namespace GameOfLiveConWay;
 
-public class Coordinate(int x, int y)
+public class Position(int x, int y)
 {
     public int X { get; } = x;
     public int Y { get; } = y;
 
-    public Coordinate CalculateLimit(int currentPosition)
+    public Position CalculateLimit(int currentPosition)
     {
         var minPosition = currentPosition - 1;
         var maxPosition = currentPosition + 1;
 
-        return new Coordinate(minPosition, maxPosition);
+        return new Position(minPosition, maxPosition);
     }
 }

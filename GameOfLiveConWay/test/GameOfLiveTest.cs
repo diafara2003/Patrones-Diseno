@@ -4,31 +4,43 @@ namespace GameOfLiveConWay;
 
 public class GameOfLiveTest
 {
-    [Fact]
-    public void InicializarGridYTodasLasCeldasMuertas()
+    [Theory]
+    [InlineData(0, 0)]
+    [InlineData(1, 1)]
+    [InlineData(2, 2)]
+    [InlineData(0, 1)]
+    [InlineData(0, 2)]
+    [InlineData(1, 0)]
+    public void InicializarGridYTodasLasCeldasMuertas(int row, int cell)
     {
         //Arrange 
         var gameOfLive = new GameOfLife(3, 3);
 
         //Act
-        var isALive = gameOfLive.IsALive(0, 0);
+        var isALive = gameOfLive.IsALive(row, cell);
 
         //Assert
         isALive.Should().BeFalse();
     }
 
- 
 
-    [Fact]
-    public void EstablecerCeldaViva()
+    [Theory]
+    [InlineData(0, 0)]
+    [InlineData(1, 1)]
+    [InlineData(2, 2)]
+    [InlineData(1, 2)]
+    [InlineData(2, 1)]
+    [InlineData(1, 0)]
+    [InlineData(2, 0)]
+    public void EstablecerCeldaViva(int row, int cell)
     {
         //Arrange
         var gameOfLive = new GameOfLife(3, 3);
 
         //Act
-        gameOfLive.SetCellAlive(1, 1);
+        gameOfLive.SetCellAlive(row, cell);
 
-        gameOfLive.IsALive(1, 1).Should().BeTrue();
+        gameOfLive.IsALive(row, cell).Should().BeTrue();
     }
 
     [Fact]
@@ -55,8 +67,6 @@ public class GameOfLiveTest
             .WithMessage("Los valores de las celdas deben ser mayores a cero");
     }
 
-  
-  
 
     [Fact]
     public void UnaCelulaViva_ConMenosDe2Vecinos_Muere()
@@ -120,4 +130,3 @@ public class GameOfLiveTest
         gameOfLive.IsALive(1, 1).Should().BeTrue();
     }
 }
-

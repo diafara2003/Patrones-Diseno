@@ -5,7 +5,7 @@ public static class CalulatorPosition
     public static int CountNeighborAlive(this ICell[,] grid, int row, int cell)
     {
         var count = 0;
-        var position = new Coordinate(row, cell);
+        var position = new Position(row, cell);
 
         var positionRow = position.CalculateLimit(row);
         var positionCell = position.CalculateLimit(cell);
