@@ -10,7 +10,9 @@ public class ControlAccesoObraTests
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra();
-        var trabajador = new Worker("Juan", "Perez", "12345678", TypeSpecialty.Carpintero, 60);
+        var trabajador = new Worker("Juan", "Perez", "12345678",
+            new DateTime(2025, 11, 28),
+            TypeSpecialty.Carpintero, 60);
 
         // Act
         var resultado = controlAcceso.SignIn(trabajador);
@@ -24,7 +26,9 @@ public class ControlAccesoObraTests
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra();
-        var trabajador = new Worker("Juan", "Perez", "12345678", TypeSpecialty.OperarioMaquina, 0);
+        var trabajador = new Worker("Juan", "Perez", "12345678",
+            new DateTime(2025, 11, 28),
+            TypeSpecialty.OperarioMaquina, 0);
 
         // Act
         var resultado = controlAcceso.SignIn(trabajador);
@@ -39,7 +43,9 @@ public class ControlAccesoObraTests
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra();
-        var trabajador = new Worker("Juan", "Perez", "12345679", TypeSpecialty.Carpintero, 0);
+        var trabajador = new Worker("Juan", "Perez", "12345679",
+            new DateTime(2025, 11, 28),
+            TypeSpecialty.Carpintero, 0);
 
         // Act
         var resultado = controlAcceso.SignIn(trabajador);
@@ -53,12 +59,31 @@ public class ControlAccesoObraTests
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra();
-        var trabajador = new Worker("Juan", "Perez", "12345678", TypeSpecialty.Carpintero, 0);
+        var trabajador = new Worker("Juan", "Perez", "12345678",
+            new DateTime(2025, 11, 28),
+            TypeSpecialty.Carpintero,
+            0);
 
         // Act
         var resultado = controlAcceso.SignIn(trabajador);
 
         // Assert
         resultado.Should().Be(ControlAccesoObra.NoCumpleConLaReglaDelAvanceMinimo);
+    }
+
+    [Fact(DisplayName = "Un Empleado solo puede ingresar si cumple años ese dia")]
+    public void UnTrabajadorNoPuedeIngresarSiNoCumpleConLaReglaDeCumpleaños()
+    {
+        // Arrange
+        var controlAcceso = new ControlAccesoObra();
+        var trabajador = new Worker("Juan", "Perez", "12345678",
+            new DateTime(2025, 10, 28),
+            TypeSpecialty.Carpintero, 60);
+        
+        // Act
+        var resultado = controlAcceso.SignIn(trabajador);
+        
+        // Assert
+        resultado.Should().Be(ControlAccesoObra.NoCumpleConLaReglaDeCumpleaños);
     }
 }

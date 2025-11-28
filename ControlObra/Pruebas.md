@@ -3,12 +3,12 @@
 Esta lista guía el desarrollo paso a paso. En TDD, seleccionamos una prueba, la implementamos (Red -> Green), refactorizamos, y pasamos a la siguiente.
 
 ## Ciclo 1: Reglas de Ingreso
-- [ ] **Test 1**: Un trabajador puede ingresar si no hay reglas restrictivas configuradas.
-- [ ] **Test 2**: Configurar regla "Solo Carpinteros": Un 'Operario' NO puede ingresar.
-- [ ] **Test 3**: Configurar regla "Solo Carpinteros": Un 'Carpintero' SÍ puede ingresar.
-- [ ] **Test 4**: Configurar regla "Cédulas Pares": Cédula impar NO ingresa.
-- [ ] **Test 5**: Configurar regla "Cédulas Pares": Cédula par SÍ ingresa.
-- [ ] **Test 6**: Configurar regla "Avance Máximo 50%": Trabajador con 50% NO ingresa.
+- [x] **Test 1**: Un trabajador puede ingresar si no hay reglas restrictivas configuradas.
+- [x] **Test 2**: Configurar regla "Solo Carpinteros": Un 'Operario' NO puede ingresar.
+- [x] **Test 3**: Configurar regla "Solo Carpinteros": Un 'Carpintero' SÍ puede ingresar.
+- [x] **Test 4**: Configurar regla "Cédulas Pares": Cédula impar NO ingresa.
+- [x] **Test 5**: Configurar regla "Cédulas Pares": Cédula par SÍ ingresa.
+- [x] **Test 6**: Configurar regla "Avance Máximo 50%": Trabajador con 50% NO ingresa.
 - [ ] **Test 7**: Múltiples reglas: Debe cumplir TODAS (AND) para ingresar.
 
 ## Ciclo 2: Salida y Acumulación de Avance
