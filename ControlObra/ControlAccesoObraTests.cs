@@ -1,0 +1,23 @@
+﻿using ControlObra.Dominio;
+using FluentAssertions;
+
+namespace ControlObra;
+
+public class ControlAccesoObraTests
+{
+    [Fact(DisplayName = "Un trabajador puede ingresar si no hay reglas restrictivas configuradas.")]
+    public void UnTrabajadorPuedeIngresarSiNoHayReglasRestrictivasConfiguradas()
+    {
+        // Arrange
+        var controlAcceso = new ControlAccesoObra();
+        var trabajador = new Worker("Juan", "Perez", "12345678", TypeSpecialty.Carpintero);
+
+        // Act
+        var resultado = controlAcceso.SignIn(trabajador);
+
+        // Assert
+        resultado.Should().BeTrue();
+    }
+
+   
+}

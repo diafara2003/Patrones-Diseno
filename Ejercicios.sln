@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CajeroAutomatico", "CajeroA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfLiveConWay", "GameOfLiveConWay\GameOfLiveConWay.csproj", "{D8070837-194D-4240-A4E0-4DE61CCFE1EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlAccesoObra", "ControlAccesoObra\ControlAccesoObra.csproj", "{E9CB4C72-B58B-41F9-A4CF-CBDF21F980B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlObra", "ControlObra\ControlObra.csproj", "{E9CB4C72-B58B-41F9-A4CF-CBDF21F980B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
