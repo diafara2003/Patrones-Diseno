@@ -16,7 +16,7 @@ public class ControlAccesoObraTests
         var resultado = controlAcceso.SignIn(trabajador);
 
         // Assert
-        resultado.Should().BeTrue();
+        resultado.Should().Be(ControlAccesoObra.IngresoExitoso);
     }
 
     [Fact(DisplayName = "Un trabajador tipo Operador de maquina no puede ingresar por la regla de especialidad   ")]
@@ -30,7 +30,7 @@ public class ControlAccesoObraTests
         var resultado = controlAcceso.SignIn(trabajador);
 
         // Assert
-        resultado.Should().BeFalse();
+        resultado.Should().Be(ControlAccesoObra.NoCumpleConLaReglaDeEspecialidad);
     }
 
     [Fact(DisplayName =
@@ -45,7 +45,7 @@ public class ControlAccesoObraTests
         var resultado = controlAcceso.SignIn(trabajador);
 
         // Assert
-        resultado.Should().BeFalse();
+        resultado.Should().Be(ControlAccesoObra.NoCumpleConLaReglaDeCedula);
     }
 
     [Fact(DisplayName = "Un Empleado no puede ingresar por la regla del avance minimo del 50%")]
@@ -59,6 +59,6 @@ public class ControlAccesoObraTests
         var resultado = controlAcceso.SignIn(trabajador);
 
         // Assert
-        resultado.Should().BeFalse();
+        resultado.Should().Be(ControlAccesoObra.NoCumpleConLaReglaDelAvanceMinimo);
     }
 }
