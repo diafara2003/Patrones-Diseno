@@ -19,5 +19,17 @@ public class ControlAccesoObraTests
         resultado.Should().BeTrue();
     }
 
-   
+    [Fact(DisplayName = "Un trabajador tipo Operador de maquina no puede ingresar por la regla de especialidad   ")]
+    public void UnTrabajadorNoPuedeIngresarSiHayReglasRestrictivasConfiguradas()
+    {
+        // Arrange
+        var controlAcceso = new ControlAccesoObra();
+        var trabajador = new Worker("Juan", "Perez", "12345678", TypeSpecialty.OperarioMaquina);
+
+        // Act
+        var resultado = controlAcceso.SignIn(trabajador);
+
+        // Assert
+        resultado.Should().BeFalse();
+    }
 }
