@@ -1,40 +1,36 @@
 namespace ControlObra.Dominio;
 
-public class ControlAccesoObra()
+public class ControlAccesoObra
 {
-    public static string NoCumpleConLaReglaDeEspecialidad = "No cumple con la regla de especialidad";
-    public static string NoCumpleConLaReglaDeCedula = "No cumple con la regla de cedula";
-    public static string NoCumpleConLaReglaDelAvanceMinimo = "No cumple con la regla del avance minimo del 50%";
     public static string IngresoExitoso = "Ingreso exitoso";
-    public static string NoCumpleConLaReglaDeCumpleaños = "No cumple con la regla de cumpleaños";
 
-
+    private List<IAccessRule> _rules = [];
     private readonly List<Worker> _employs = [];
 
-    private bool RuleForOnlyEmploysCategory(Worker employ) => employ.speciality == TypeSpecialty.Carpintero;
+    public void AddRule(IAccessRule rule) => _rules.Add(rule);
 
-    private bool RuleForOnlyDocument(Worker employ) => int.Parse(employ.documentNumber) % 2 == 0;
 
-    private bool RuleForOnlyEmployProgress(Worker employ) => employ.progress >= 50;
-
-    private bool RuleForBirthDate(Worker employ) => employ.birthDate.Month == DateTime.Now.Month
-                                                    && employ.birthDate.Day == DateTime.Now.Day;
-
-    public string SignIn(Worker employ)
+    public string Enter(Worker employ)
     {
-        if (RuleForOnlyEmploysCategory(employ) is false)
-            return NoCumpleConLaReglaDeEspecialidad;
+        if (_rules.Count == 0)
+            return IngresoExitoso;
 
-        if (RuleForOnlyDocument(employ) is false)
-            return NoCumpleConLaReglaDeCedula;
+        var rulesError = _rules
+            .Where(rule => !rule.HasAccess(employ))
+            .ToList();
 
-        if (RuleForOnlyEmployProgress(employ) is false)
-            return NoCumpleConLaReglaDelAvanceMinimo;
+        if (rulesError.Any())
+            return FormatErrorMessages(rulesError);
 
-        if (RuleForBirthDate(employ) is false)
-            return NoCumpleConLaReglaDeCumpleaños;
 
         _employs.Add(employ);
+
         return IngresoExitoso;
+    }
+
+    private static string FormatErrorMessages(IEnumerable<IAccessRule> rulesError)
+    {
+        return rulesError.Select(ruleMessage => ruleMessage.Message)
+            .Aggregate((current, next) => current + ", " + next);
     }
 }

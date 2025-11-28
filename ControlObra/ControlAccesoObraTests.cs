@@ -14,8 +14,9 @@ public class ControlAccesoObraTests
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero, 60);
 
+
         // Act
-        var resultado = controlAcceso.SignIn(trabajador);
+        var resultado = controlAcceso.Enter(trabajador);
 
         // Assert
         resultado.Should().Be(ControlAccesoObra.IngresoExitoso);
@@ -29,12 +30,13 @@ public class ControlAccesoObraTests
         var trabajador = new Worker("Juan", "Perez", "12345678",
             new DateTime(2025, 11, 28),
             TypeSpecialty.OperarioMaquina, 0);
+        controlAcceso.AddRule(new RuleForSpecialty(TypeSpecialty.Carpintero));
 
         // Act
-        var resultado = controlAcceso.SignIn(trabajador);
+        var resultado = controlAcceso.Enter(trabajador);
 
         // Assert
-        resultado.Should().Be(ControlAccesoObra.NoCumpleConLaReglaDeEspecialidad);
+        resultado.Should().Be("No cumple con la regla de especialidad");
     }
 
     [Fact(DisplayName =
@@ -46,12 +48,13 @@ public class ControlAccesoObraTests
         var trabajador = new Worker("Juan", "Perez", "12345679",
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero, 0);
+        controlAcceso.AddRule(new RuleForDocumentNumberEven());
 
         // Act
-        var resultado = controlAcceso.SignIn(trabajador);
+        var resultado = controlAcceso.Enter(trabajador);
 
         // Assert
-        resultado.Should().Be(ControlAccesoObra.NoCumpleConLaReglaDeCedula);
+        resultado.Should().Be("No cumple con la regla de cedula");
     }
 
     [Fact(DisplayName = "Un Empleado no puede ingresar por la regla del avance minimo del 50%")]
@@ -63,12 +66,13 @@ public class ControlAccesoObraTests
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero,
             0);
+        controlAcceso.AddRule(new RuleForProgress());
 
         // Act
-        var resultado = controlAcceso.SignIn(trabajador);
+        var resultado = controlAcceso.Enter(trabajador);
 
         // Assert
-        resultado.Should().Be(ControlAccesoObra.NoCumpleConLaReglaDelAvanceMinimo);
+        resultado.Should().Be("No cumple con la regla de progreso");
     }
 
     [Fact(DisplayName = "Un Empleado solo puede ingresar si cumple años ese dia")]
@@ -79,11 +83,12 @@ public class ControlAccesoObraTests
         var trabajador = new Worker("Juan", "Perez", "12345678",
             new DateTime(2025, 10, 28),
             TypeSpecialty.Carpintero, 60);
-        
+        controlAcceso.AddRule(new RuleForBirthDate());
+
         // Act
-        var resultado = controlAcceso.SignIn(trabajador);
-        
+        var resultado = controlAcceso.Enter(trabajador);
+
         // Assert
-        resultado.Should().Be(ControlAccesoObra.NoCumpleConLaReglaDeCumpleaños);
+        resultado.Should().Be("No cumple con la regla de cumpleaños");
     }
 }
