@@ -5,16 +5,13 @@ public class ControlAccesoObra
     public static string IngresoExitoso = "Ingreso exitoso";
 
     private List<IAccessRule> _rules = [];
-    private readonly List<Worker> _employs = [];
+    private readonly List<Worker> _workers = [];
 
     public void AddRule(IAccessRule rule) => _rules.Add(rule);
 
 
     public string Enter(Worker employ)
     {
-        if (_rules.Count == 0)
-            return IngresoExitoso;
-
         var rulesError = _rules
             .Where(rule => !rule.HasAccess(employ))
             .ToList();
@@ -23,7 +20,7 @@ public class ControlAccesoObra
             return FormatErrorMessages(rulesError);
 
 
-        _employs.Add(employ);
+        _workers.Add(employ);
 
         return IngresoExitoso;
     }

@@ -4,4 +4,5 @@ public enum TypeSpecialty
 {
     Carpintero,
     OperarioMaquina
+    
 }
