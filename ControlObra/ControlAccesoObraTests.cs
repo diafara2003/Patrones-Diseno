@@ -32,4 +32,18 @@ public class ControlAccesoObraTests
         // Assert
         resultado.Should().BeFalse();
     }
+
+    [Fact(DisplayName = "Si un trabajador no cumple con la regla de cedula no puede ingresar - Solo cedulas pares ingresan")]
+    public void UnTrabajadorNoPuedeIngresarSiNoCumpleConLaReglaDeCedula()
+    {
+        // Arrange
+        var controlAcceso = new ControlAccesoObra();
+        var trabajador = new Worker("Juan", "Perez", "12345679", TypeSpecialty.Carpintero);
+
+        // Act
+        var resultado = controlAcceso.SignIn(trabajador);
+
+        // Assert
+        resultado.Should().BeFalse();
+    }
 }

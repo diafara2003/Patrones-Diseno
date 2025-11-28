@@ -6,9 +6,14 @@ public class ControlAccesoObra
 
     private bool RuleForOnlyEmploysCategory(Worker employ) => employ.speciality == TypeSpecialty.Carpintero;
 
+    private bool RuleForOnlyDocument(Worker employ) => int.Parse(employ.document) % 2 == 0;
+
     public bool SignIn(Worker employ)
     {
         if (RuleForOnlyEmploysCategory(employ) is false)
+            return false;
+
+        if (RuleForOnlyDocument(employ) is false)
             return false;
 
         _employs.Add(employ);
