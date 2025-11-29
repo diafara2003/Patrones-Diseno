@@ -43,7 +43,7 @@ public class ControlAccesoObra(List<IAccessRule> rules, int minProgress)
         if (progress < minProgress)
             return false;
 
-        return false;
+        return true;
     }
 }
 
