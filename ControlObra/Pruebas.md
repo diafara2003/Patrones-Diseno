@@ -18,8 +18,8 @@ Esta lista guía el desarrollo paso a paso. En TDD, seleccionamos una prueba, la
 - [x] **Test 11**: Verificar que el avance se acumula correctamente tras múltiples salidas.
 
 ## Ciclo 3: Bloqueo por Completitud
-- [ ] **Test 12**: Si el avance acumulado llega al 100%, el trabajador queda en estado "Completado".
-- [ ] **Test 13**: Un trabajador "Completado" NO puede volver a ingresar (ignora reglas del día).
+- [x] **Test 12**: Si el avance acumulado llega al 100%, el trabajador queda en estado "Completado".
+- [x] **Test 13**: Un trabajador "Completado" NO puede volver a ingresar (ignora reglas del día).
 
 ## Ciclo 4: Reportes
 - [ ] **Test 14**: Generar reporte de avance total por rol.
