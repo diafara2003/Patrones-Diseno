@@ -34,8 +34,7 @@ public class ControlAccesoObra(List<IAccessRule> rules, int minProgress)
     {
         var worker = Workers.FirstOrDefault(worker => worker.DocumentNumber == documentNumber);
 
-        if (worker is null)
-            throw new InvalidOperationException("El trabajador no existe");
+        ThrowIfWorkerNotFound(worker);
 
         if (exitType == ExitType.Lunch)
         {
@@ -51,6 +50,12 @@ public class ControlAccesoObra(List<IAccessRule> rules, int minProgress)
         worker.AddLogExit(new LogExit(documentNumber, progress, exitType));
 
         return true;
+    }
+
+    private void ThrowIfWorkerNotFound(Worker? worker)
+    {
+        if (worker is null)
+            throw new InvalidOperationException("El trabajador no existe");
     }
 
     private List<string> EvaluateAccessRules(Worker employ)
