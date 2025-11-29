@@ -23,13 +23,6 @@ public class ControlAccesoObra(List<IAccessRule> rules, int minProgress)
     }
 
 
-    private List<string> EvaluateAccessRules(Worker employ)
-    {
-        return rules
-            .Select(rule => rule.EvaluateRule(employ))
-            .ToList();
-    }
-
     public Worker GetWorker(string documentNumber)
     {
         var worker = Workers.FirstOrDefault(worker => worker.DocumentNumber == documentNumber);
@@ -59,6 +52,14 @@ public class ControlAccesoObra(List<IAccessRule> rules, int minProgress)
 
         return true;
     }
+
+    private List<string> EvaluateAccessRules(Worker employ)
+    {
+        return rules
+            .Select(rule => rule.EvaluateRule(employ))
+            .ToList();
+    }
+
 
     private bool IsProgressSufficient(int totalProgressWorker)
         => totalProgressWorker < minProgress;
