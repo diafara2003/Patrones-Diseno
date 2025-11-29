@@ -44,15 +44,22 @@ public class ControlAccesoObra(List<IAccessRule> rules, int minProgress)
 
         var totalProgressWorker = worker.Progress + progress;
 
+        ThrowIfProgressMoreThan100(totalProgressWorker);
+        
         if (IsProgressSufficient(totalProgressWorker))
             return false;
 
-        if (totalProgressWorker > 100)
-            throw new InvalidOperationException("El avance no puede superar el 100%");
+        ThrowIfProgressMoreThan100(totalProgressWorker);
 
         worker.AddLogExit(new LogExit(documentNumber, progress, exitType));
 
         return true;
+    }
+
+    private static void ThrowIfProgressMoreThan100(int totalProgressWorker)
+    {
+        if (totalProgressWorker > 100)
+            throw new InvalidOperationException("El avance no puede superar el 100%");
     }
 
     private void ThrowIfWorkerNotFound(Worker? worker)
