@@ -88,4 +88,21 @@ public class ControlAccesoObraTests
         // Assert
         resultado.Should().Be("No cumple con la regla de cumpleaños");
     }
+
+    [Fact(DisplayName = "Un Empleado solo puede ingresar si cumple años ese dia y es carpintero")]
+    public void UnTrabajadorNoPuedeIngresarSiNoCumpleConLaReglaDeCumpleañosYEsCarpintero()
+    {
+        // Arrange
+        var controlAcceso =
+            new ControlAccesoObra([new RuleForBirthDate(), new RuleForSpecialty(TypeSpecialty.OperarioMaquina)]);
+        var trabajador = new Worker("Juan", "Perez", "12345678",
+            new DateTime(2025, 10, 28),
+            TypeSpecialty.Carpintero, 60);
+
+        // Act
+        var resultado = controlAcceso.Enter(trabajador);
+
+        // Assert
+        resultado.Should().Be("No cumple con la regla de cumpleaños, No cumple con la regla de especialidad");
+    }
 }
