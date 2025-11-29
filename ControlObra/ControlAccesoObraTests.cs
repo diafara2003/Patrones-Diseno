@@ -10,7 +10,7 @@ public class ControlAccesoObraTests
     public void UnTrabajadorPuedeIngresarSiNoHayReglasRestrictivasConfiguradas()
     {
         // Arrange
-        var controlAcceso = new ControlAccesoObra([new EmptyRule()]);
+        var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
         var trabajador = new Worker("Juan", "Perez", "12345678",
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero, 60);
@@ -27,7 +27,7 @@ public class ControlAccesoObraTests
     public void UnTrabajadorNoPuedeIngresarSiHayReglasRestrictivasConfiguradas()
     {
         // Arrange
-        var controlAcceso = new ControlAccesoObra([new RuleForSpecialty(TypeSpecialty.Carpintero)]);
+        var controlAcceso = new ControlAccesoObra([new RuleForSpecialty(TypeSpecialty.Carpintero)], 50);
         var trabajador = new Worker("Juan", "Perez", "12345678",
             new DateTime(2025, 11, 28),
             TypeSpecialty.OperarioMaquina, 0);
@@ -44,7 +44,7 @@ public class ControlAccesoObraTests
     public void UnTrabajadorNoPuedeIngresarSiNoCumpleConLaReglaDeCedula()
     {
         // Arrange
-        var controlAcceso = new ControlAccesoObra([new RuleForDocumentNumberEven()]);
+        var controlAcceso = new ControlAccesoObra([new RuleForDocumentNumberEven()], 50);
         var trabajador = new Worker("Juan", "Perez", "12345679",
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero, 0);
@@ -60,7 +60,7 @@ public class ControlAccesoObraTests
     public void UnTrabajadorNoPuedeIngresarSiNoCumpleConLaReglaDeAvanceMinimo()
     {
         // Arrange
-        var controlAcceso = new ControlAccesoObra([new RuleForProgress()]);
+        var controlAcceso = new ControlAccesoObra([new RuleForProgress()], 50);
         var trabajador = new Worker("Juan", "Perez", "12345678",
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero,
@@ -77,7 +77,7 @@ public class ControlAccesoObraTests
     public void UnTrabajadorNoPuedeIngresarSiNoCumpleConLaReglaDeCumpleaños()
     {
         // Arrange
-        var controlAcceso = new ControlAccesoObra([new RuleForBirthDate()]);
+        var controlAcceso = new ControlAccesoObra([new RuleForBirthDate()], 50);
         var trabajador = new Worker("Juan", "Perez", "12345678",
             new DateTime(2025, 10, 28),
             TypeSpecialty.Carpintero, 60);
@@ -94,7 +94,7 @@ public class ControlAccesoObraTests
     {
         // Arrange
         var controlAcceso =
-            new ControlAccesoObra([new RuleForBirthDate(), new RuleForSpecialty(TypeSpecialty.OperarioMaquina)]);
+            new ControlAccesoObra([new RuleForBirthDate(), new RuleForSpecialty(TypeSpecialty.OperarioMaquina)], 50);
         var trabajador = new Worker("Juan", "Perez", "12345678",
             new DateTime(2025, 10, 28),
             TypeSpecialty.Carpintero, 60);
@@ -111,7 +111,7 @@ public class ControlAccesoObraTests
     public void SalidaPorAlmuerzoEsExitosa()
     {
         // Arrange
-        var controlAcceso = new ControlAccesoObra([new EmptyRule()]);
+        var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
         var trabajador = new Worker("Juan", "Perez", "12345678",
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero, 60);
@@ -122,5 +122,22 @@ public class ControlAccesoObraTests
 
         // Assert
         result.Should().BeTrue();
+    }
+
+    [Fact(DisplayName = "Un empleado no puede salir si su avance es menor al 50% y no es por almuerzo")]
+    public void UnEmpleadoNoPuedeSalirSiSuAvanceEsMenorAl50PorcientoYNoEsPorAlmuerzo()
+    {
+        // Arrange
+        var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
+        var trabajador = new Worker("Juan", "Perez", "12345678",
+            new DateTime(2025, 11, 28),
+            TypeSpecialty.Carpintero, 20);
+        controlAcceso.Enter(trabajador);
+
+        // Act
+        var result = controlAcceso.Exit(trabajador.documentNumber, trabajador.progress, ExitType.Other);
+
+        // Assert
+        result.Should().BeFalse();
     }
 }

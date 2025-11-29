@@ -2,7 +2,7 @@ using ControlObra.Dominio.Rules;
 
 namespace ControlObra.Dominio;
 
-public class ControlAccesoObra(List<IAccessRule> rules)
+public class ControlAccesoObra(List<IAccessRule> rules, int minProgress)
 {
     public readonly List<Worker> workers = [];
     private List<LogExit> _exitLogs = [];
@@ -40,11 +40,15 @@ public class ControlAccesoObra(List<IAccessRule> rules)
             return true;
         }
 
+        if (progress < minProgress)
+            return false;
+
         return false;
     }
 }
 
 public enum ExitType
 {
-    Lunch
+    Lunch,
+    Other
 }
