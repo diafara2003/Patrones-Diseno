@@ -272,4 +272,11 @@ public class ControlAccesoObraTests
         var caller = () => new Worker("Juan", "", DateTime.Now, TypeSpecialty.Carpintero);
         caller.Should().Throw<ArgumentException>();
     }
+
+    [Fact(DisplayName = "Si creo un worker sin nombre debe lanzar exepcion")]
+    public void SiCreoUnWorkerSinNombreDebeLanzarExepcion()
+    {
+        var caller = () => new Worker("", "1231231", DateTime.Now, TypeSpecialty.Carpintero);
+        caller.Should().Throw<ArgumentException>();
+    }
 }

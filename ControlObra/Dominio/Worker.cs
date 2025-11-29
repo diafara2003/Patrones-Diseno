@@ -20,6 +20,8 @@ public class Worker
         TypeSpecialty speciality)
     {
         ArgumentException.ThrowIfNullOrEmpty(documentNumber);
+        ArgumentException.ThrowIfNullOrEmpty(name);
+
         _name = name;
         _documentNumber = documentNumber;
         _birthDate = birthDate;
