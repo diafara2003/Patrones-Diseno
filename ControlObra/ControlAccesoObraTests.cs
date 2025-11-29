@@ -210,4 +210,23 @@ public class ControlAccesoObraTests
         // Assert
         act.Should().Throw<InvalidOperationException>();
     }
+
+    [Fact(DisplayName =
+        "Si un empleado completa el 100% de avance y si registra una salida  que no sea de almuerzo debe lanzar exepcion")]
+    public void SiUnEmpleadoCompletaEl100PorcientoNoPuedeVolverARegistrarSalida()
+    {
+        // Arrange
+        var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
+        var trabajador = new Worker("Juan", "Perez", "12345678",
+            new DateTime(2025, 11, 28),
+            TypeSpecialty.Carpintero);
+        controlAcceso.Enter(trabajador);
+        controlAcceso.Exit(trabajador.DocumentNumber, 100, ExitType.Other);
+
+        // Act
+        Action act = () => controlAcceso.Exit(trabajador.DocumentNumber, 10, ExitType.Other);
+
+        // Assert
+        act.Should().Throw<InvalidOperationException>();
+    }
 }

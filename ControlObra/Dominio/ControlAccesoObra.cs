@@ -47,6 +47,9 @@ public class ControlAccesoObra(List<IAccessRule> rules, int minProgress)
         if (IsProgressSufficient(totalProgressWorker))
             return false;
 
+        if (totalProgressWorker > 100)
+            throw new InvalidOperationException("El avance no puede superar el 100%");
+
         worker.AddLogExit(new LogExit(documentNumber, progress, exitType));
 
         return true;

@@ -9,13 +9,13 @@ Esta lista guía el desarrollo paso a paso. En TDD, seleccionamos una prueba, la
 - [x] **Test 4**: Configurar regla "Cédulas Pares": Cédula impar NO ingresa.
 - [x] **Test 5**: Configurar regla "Cédulas Pares": Cédula par SÍ ingresa.
 - [x] **Test 6**: Configurar regla "Avance Máximo 50%": Trabajador con 50% NO ingresa.
-- [ ] **Test 7**: Múltiples reglas: Debe cumplir TODAS (AND) para ingresar.
+- [x] **Test 7**: Múltiples reglas: Debe cumplir TODAS (AND) para ingresar.
 
 ## Ciclo 2: Salida y Acumulación de Avance
-- [ ] **Test 8**: Salida por "Almuerzo" es siempre exitosa y no modifica el avance.
-- [ ] **Test 9**: Salida "Normal" con avance menor al mínimo (5%) es rechazada.
-- [ ] **Test 10**: Salida "Normal" con avance suficiente es exitosa y suma al acumulado.
-- [ ] **Test 11**: Verificar que el avance se acumula correctamente tras múltiples salidas.
+- [x] **Test 8**: Salida por "Almuerzo" es siempre exitosa y no modifica el avance.
+- [x] **Test 9**: Salida "Normal" con avance menor al mínimo (5%) es rechazada.
+- [x] **Test 10**: Salida "Normal" con avance suficiente es exitosa y suma al acumulado.
+- [x] **Test 11**: Verificar que el avance se acumula correctamente tras múltiples salidas.
 
 ## Ciclo 3: Bloqueo por Completitud
 - [ ] **Test 12**: Si el avance acumulado llega al 100%, el trabajador queda en estado "Completado".
