@@ -34,9 +34,13 @@ public class ControlAccesoObra(List<IAccessRule> rules)
 
     public bool Exit(string documentNumber, int progress, ExitType exitType)
     {
-        _exitLogs.Add(new LogExit(documentNumber, progress, exitType));
-        
-        return true;
+        if (exitType == ExitType.Lunch)
+        {
+            _exitLogs.Add(new LogExit(documentNumber, progress, exitType));
+            return true;
+        }
+
+        return false;
     }
 }
 

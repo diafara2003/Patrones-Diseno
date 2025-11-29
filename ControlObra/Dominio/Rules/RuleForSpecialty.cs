@@ -2,7 +2,7 @@ namespace ControlObra.Dominio.Rules;
 
 public class RuleForSpecialty(TypeSpecialty typeSpecialty) : IAccessRule
 {
-    public string EvaluateAccess(Worker worker)
+    public string EvaluateRule(Worker worker)
     {
         var isAccess = worker.speciality == typeSpecialty;
 

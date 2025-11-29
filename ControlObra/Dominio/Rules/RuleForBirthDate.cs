@@ -3,7 +3,7 @@ namespace ControlObra.Dominio.Rules;
 public class RuleForBirthDate : IAccessRule
 {
    
-    public string EvaluateAccess(Worker worker)
+    public string EvaluateRule(Worker worker)
     {
         var isAccess = worker.birthDate.Month == DateTime.Now.Month
                        && worker.birthDate.Day == DateTime.Now.Day;

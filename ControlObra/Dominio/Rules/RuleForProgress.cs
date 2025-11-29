@@ -2,7 +2,7 @@ namespace ControlObra.Dominio.Rules;
 
 public class RuleForProgress : IAccessRule
 {
-    public string EvaluateAccess(Worker worker)
+    public string EvaluateRule(Worker worker)
     {
         var isAccess = worker.progress > 50;
 
