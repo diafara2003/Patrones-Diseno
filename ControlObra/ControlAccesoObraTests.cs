@@ -265,4 +265,11 @@ public class ControlAccesoObraTests
         // Assert
         result.Should().BeTrue();
     }
+
+    [Fact(DisplayName = "Si creo un worker sin documento debe lanzar exepcion")]
+    public void SiCreoUnWorkerSinDocumentoDebeLanzarExepcion()
+    {
+        var caller = () => new Worker("Juan", "", DateTime.Now, TypeSpecialty.Carpintero);
+        caller.Should().Throw<ArgumentException>();
+    }
 }
