@@ -8,6 +8,8 @@ public class Worker
     public DateTime BirthDate => _birthDate;
     public TypeSpecialty Speciality => _speciality;
     public int Progress => _exitLogs.GetProgress();
+    public int CountExit => _exitLogs.Count;
+
     private List<LogExit> _exitLogs = [];
     private readonly string _name;
     private readonly string _documentNumber;

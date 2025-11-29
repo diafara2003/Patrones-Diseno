@@ -11,7 +11,8 @@ El sistema debe ser flexible, ya que **las reglas de ingreso cambian cada día**
 Cada obra configura una o varias reglas para el ingreso de sus trabajadores.
 El sistema debe permitir configurar las siguientes reglas que aplican para el día de la obra:
 
-- **Restricción por Rol**: Solo se permite el ingreso a ciertos roles (ej. solo Carpinteros, o Carpinteros y Operarios).
+- **Restricción por Categorias**: Solo se permite el ingreso a ciertos roles (ej. solo Carpinteros, o Carpinteros y
+  Operarios).
 - **Restricción por Cédula**: Solo pueden ingresar quienes tienen cédulas con cierta terminación (ej. terminadas en
   número par).
 - **Restricción por Avance**: Solo empleados con un avance acumulado menor a cierto porcentaje (ej. 50%).
@@ -22,9 +23,10 @@ El sistema debe validar que el trabajador cumpla **todas** las reglas activas pa
 
 ### � Reglas de Salida
 
-Cuando un trabajador intenta salir, debe indicar el motivo. El sistema valida la salida así:
+Cuando un trabajador intenta salir, debe registrar su progreso en la obra.
+El sistema debe permitir las siguientes salidas:
 
-1. **Salida por Almuerzo**: Siempre permitida. No requiere registrar avance.
+1. **Salida por Almuerzo**: Siempre permitida. puede salir sin importar su avance.
 2. **Salida Normal**:
     - El trabajador debe reportar el avance realizado en esa sesión.
     - Si el avance reportado es **inferior al mínimo requerido** (parametrable, ej. 5%), la salida es rechazada y debe

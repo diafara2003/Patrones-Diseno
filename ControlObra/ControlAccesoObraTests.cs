@@ -76,7 +76,7 @@ public class ControlAccesoObraTests
         controlAcceso.Workers.Should().HaveCount(0);
     }
 
-    [Fact(DisplayName = "Un Empleado no puede ingresar por la regla del avance minimo del 50%")]
+    [Fact(DisplayName = "Un trabajador no puede ingresar por la regla del avance minimo del 50%")]
     public void UnTrabajadorNoPuedeIngresarSiNoCumpleConLaReglaDeAvanceMinimo()
     {
         // Arrange
@@ -93,7 +93,7 @@ public class ControlAccesoObraTests
         controlAcceso.Workers.Should().HaveCount(0);
     }
 
-    [Fact(DisplayName = "Un Empleado solo puede ingresar si cumple años ese dia")]
+    [Fact(DisplayName = "Un trabajador solo puede ingresar si cumple años ese dia")]
     public void UnTrabajadorNoPuedeIngresarSiNoCumpleConLaReglaDeCumpleaños()
     {
         // Arrange
@@ -110,7 +110,7 @@ public class ControlAccesoObraTests
         controlAcceso.Workers.Should().HaveCount(0);
     }
 
-    [Fact(DisplayName = "Un Empleado solo puede ingresar si cumple años ese dia y es carpintero")]
+    [Fact(DisplayName = "Un trabajador solo puede ingresar si cumple años ese dia y es carpintero")]
     public void UnTrabajadorNoPuedeIngresarSiNoCumpleConLaReglaDeCumpleañosYEsCarpintero()
     {
         // Arrange
@@ -129,7 +129,7 @@ public class ControlAccesoObraTests
     }
 
 
-    [Fact(DisplayName = "Si la salida de un empleado es por almuerzo siempre es exitosa y no modifica el avance")]
+    [Fact(DisplayName = "Si la salida de un trabajador es por almuerzo siempre es exitosa y no modifica el avance")]
     public void SalidaPorAlmuerzoEsExitosa()
     {
         // Arrange
@@ -146,8 +146,8 @@ public class ControlAccesoObraTests
         result.Should().BeTrue();
     }
 
-    [Fact(DisplayName = "Un empleado no puede salir si su avance es menor al 50% y no es por almuerzo")]
-    public void UnEmpleadoNoPuedeSalirSiSuAvanceEsMenorAl50PorcientoYNoEsPorAlmuerzo()
+    [Fact(DisplayName = "Un trabajador no puede salir si su avance es menor al 50% y no es por almuerzo")]
+    public void UntrabajadorNoPuedeSalirSiSuAvanceEsMenorAl50PorcientoYNoEsPorAlmuerzo()
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
@@ -163,8 +163,8 @@ public class ControlAccesoObraTests
         result.Should().BeFalse();
     }
 
-    [Fact(DisplayName = "Si un empleado sale con avance mayor o igual al 50% la salida es exitosa")]
-    public void UnEmpleadoPuedeSalirSiSuAvanceEsMayorOIgualAl50Porciento()
+    [Fact(DisplayName = "Si un trabajador sale con avance mayor o igual al 50% la salida es exitosa")]
+    public void UntrabajadorPuedeSalirSiSuAvanceEsMayorOIgualAl50Porciento()
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
@@ -181,8 +181,8 @@ public class ControlAccesoObraTests
         result.Should().BeTrue();
     }
 
-    [Fact(DisplayName = "Si se intenta registrar una salida de un empleado que no existe debe lanzar exepcion")]
-    public void UnEmpleadoNoPuedeSalirSiNoEstaRegistrado()
+    [Fact(DisplayName = "Si se intenta registrar una salida de un trabajador que no existe debe lanzar exepcion")]
+    public void UntrabajadorNoPuedeSalirSiNoEstaRegistrado()
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
@@ -197,8 +197,8 @@ public class ControlAccesoObraTests
         act.Should().Throw<InvalidOperationException>();
     }
 
-    [Fact(DisplayName = "Si un empleado sale multiples veces el progreso debe aumentar")]
-    public void SiUnEmpleadoSaleMultiplesVecesElProgresoDebeAumentar()
+    [Fact(DisplayName = "Si un trabajador sale multiples veces el progreso debe aumentar")]
+    public void SiUntrabajadorSaleMultiplesVecesElProgresoDebeAumentar()
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
@@ -229,8 +229,8 @@ public class ControlAccesoObraTests
     }
 
     [Fact(DisplayName =
-        "Si un empleado completa el 100% de avance y si registra una salida  que no sea de almuerzo debe lanzar exepcion")]
-    public void SiUnEmpleadoCompletaEl100PorcientoNoPuedeVolverARegistrarSalida()
+        "Si un trabajador completa el 100% de avance y si registra una salida  que no sea de almuerzo debe lanzar exepcion")]
+    public void SiUntrabajadorCompletaEl100PorcientoNoPuedeVolverARegistrarSalida()
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
@@ -248,8 +248,8 @@ public class ControlAccesoObraTests
     }
 
     [Fact(DisplayName =
-        "Si un empleado completa el 100% de avance y si registra una salida de almuerzo debe ser exitosa")]
-    public void SiUnEmpleadoCompletaEl100PorcientoPuedeVolverARegistrarSalidaDeAlmuerzo()
+        "Si un trabajador completa el 100% de avance y si registra una salida de almuerzo debe ser exitosa")]
+    public void SiUntrabajadorCompletaEl100PorcientoPuedeVolverARegistrarSalidaDeAlmuerzo()
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
@@ -266,17 +266,34 @@ public class ControlAccesoObraTests
         result.Should().BeTrue();
     }
 
-    [Fact(DisplayName = "Si creo un worker sin documento debe lanzar exepcion")]
+    [Fact(DisplayName = "Si creo un trabajador sin documento debe lanzar exepcion")]
     public void SiCreoUnWorkerSinDocumentoDebeLanzarExepcion()
     {
         var caller = () => new Worker("Juan", "", DateTime.Now, TypeSpecialty.Carpintero);
         caller.Should().Throw<ArgumentException>();
     }
 
-    [Fact(DisplayName = "Si creo un worker sin nombre debe lanzar exepcion")]
+    [Fact(DisplayName = "Si creo un trabajador sin nombre debe lanzar exepcion")]
     public void SiCreoUnWorkerSinNombreDebeLanzarExepcion()
     {
         var caller = () => new Worker("", "1231231", DateTime.Now, TypeSpecialty.Carpintero);
         caller.Should().Throw<ArgumentException>();
+    }
+
+    [Fact(DisplayName = "Si un trabajador sale 4 veces de la obra debe aumentar el contador de salidas del trabajador")]
+    public void SiUntrabajadorSale4VecesDeLaObraDebeAumentarElContadorDeSalidasDelTrabajador()
+    {
+        // Arrange
+        var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
+        var trabajador = new Worker("Juan", "12345678", DateTime.Now, TypeSpecialty.Carpintero);
+        controlAcceso.Enter(trabajador);
+        controlAcceso.Exit(trabajador.DocumentNumber, 51, ExitType.Other);
+        controlAcceso.Exit(trabajador.DocumentNumber, 0, ExitType.Lunch);
+        controlAcceso.Exit(trabajador.DocumentNumber, 1, ExitType.Other);
+        
+        // Act
+      var trabajadorFinalJornada=  controlAcceso.GetWorker(trabajador.DocumentNumber);
+
+      trabajadorFinalJornada.CountExit.Should().Be(3);
     }
 }
