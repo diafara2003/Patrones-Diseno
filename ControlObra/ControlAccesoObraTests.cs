@@ -21,6 +21,7 @@ public class ControlAccesoObraTests
 
         // Assert
         resultado.Should().Be("Ingreso exitoso");
+        controlAcceso.workers.Should().HaveCount(1);
     }
 
     [Fact(DisplayName = "Un trabajador tipo Operador de maquina no puede ingresar por la regla de especialidad   ")]
@@ -37,6 +38,7 @@ public class ControlAccesoObraTests
 
         // Assert
         resultado.Should().Be("No cumple con la regla de especialidad");
+        controlAcceso.workers.Should().HaveCount(0);
     }
 
     [Fact(DisplayName =
@@ -54,6 +56,7 @@ public class ControlAccesoObraTests
 
         // Assert
         resultado.Should().Be("No cumple con la regla de cedula");
+        controlAcceso.workers.Should().HaveCount(0);
     }
 
     [Fact(DisplayName = "Un Empleado no puede ingresar por la regla del avance minimo del 50%")]
@@ -71,6 +74,7 @@ public class ControlAccesoObraTests
 
         // Assert
         resultado.Should().Be("No cumple con la regla de progreso");
+        controlAcceso.workers.Should().HaveCount(0);
     }
 
     [Fact(DisplayName = "Un Empleado solo puede ingresar si cumple años ese dia")]
@@ -87,6 +91,7 @@ public class ControlAccesoObraTests
 
         // Assert
         resultado.Should().Be("No cumple con la regla de cumpleaños");
+        controlAcceso.workers.Should().HaveCount(0);
     }
 
     [Fact(DisplayName = "Un Empleado solo puede ingresar si cumple años ese dia y es carpintero")]
@@ -104,6 +109,7 @@ public class ControlAccesoObraTests
 
         // Assert
         resultado.Should().Be("No cumple con la regla de cumpleaños, No cumple con la regla de especialidad");
+        controlAcceso.workers.Should().HaveCount(0);
     }
 
 
@@ -139,5 +145,39 @@ public class ControlAccesoObraTests
 
         // Assert
         result.Should().BeFalse();
+    }
+
+    [Fact(DisplayName = "Si un empleado sale con avance mayor o igual al 50% la salida es exitosa")]
+    public void UnEmpleadoPuedeSalirSiSuAvanceEsMayorOIgualAl50Porciento()
+    {
+        // Arrange
+        var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
+        var trabajador = new Worker("Juan", "Perez", "12345678",
+            new DateTime(2025, 11, 28),
+            TypeSpecialty.Carpintero, 20);
+        controlAcceso.Enter(trabajador);
+        controlAcceso.Exit(trabajador.documentNumber, 31, ExitType.Other);
+
+        // Act
+        var result = controlAcceso.Exit(trabajador.documentNumber, 10, ExitType.Other);
+
+        // Assert
+        result.Should().BeTrue();
+    }
+
+    [Fact(DisplayName = "Si se intenta registrar una salida de un empleado debe lanzar exepcion")]
+    public void UnEmpleadoNoPuedeSalirSiNoEstaRegistrado()
+    {
+        // Arrange
+        var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
+        var trabajador = new Worker("Juan", "Perez", "12345678",
+            new DateTime(2025, 11, 28),
+            TypeSpecialty.Carpintero, 20);
+
+        // Act
+        Action act = () => controlAcceso.Exit(trabajador.documentNumber, 10, ExitType.Other);
+
+        // Assert
+        act.Should().Throw<InvalidOperationException>();
     }
 }
