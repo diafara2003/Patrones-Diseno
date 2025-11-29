@@ -1,4 +1,5 @@
 ﻿using ControlObra.Dominio;
+using ControlObra.Dominio.Rules;
 using FluentAssertions;
 
 namespace ControlObra;
@@ -9,7 +10,7 @@ public class ControlAccesoObraTests
     public void UnTrabajadorPuedeIngresarSiNoHayReglasRestrictivasConfiguradas()
     {
         // Arrange
-        var controlAcceso = new ControlAccesoObra();
+        var controlAcceso = new ControlAccesoObra([new EmptyRule()]);
         var trabajador = new Worker("Juan", "Perez", "12345678",
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero, 60);
@@ -19,18 +20,17 @@ public class ControlAccesoObraTests
         var resultado = controlAcceso.Enter(trabajador);
 
         // Assert
-        resultado.Should().Be(ControlAccesoObra.IngresoExitoso);
+        resultado.Should().Be("Ingreso exitoso");
     }
 
     [Fact(DisplayName = "Un trabajador tipo Operador de maquina no puede ingresar por la regla de especialidad   ")]
     public void UnTrabajadorNoPuedeIngresarSiHayReglasRestrictivasConfiguradas()
     {
         // Arrange
-        var controlAcceso = new ControlAccesoObra();
+        var controlAcceso = new ControlAccesoObra([new RuleForSpecialty(TypeSpecialty.Carpintero)]);
         var trabajador = new Worker("Juan", "Perez", "12345678",
             new DateTime(2025, 11, 28),
             TypeSpecialty.OperarioMaquina, 0);
-        controlAcceso.AddRule(new RuleForSpecialty(TypeSpecialty.Carpintero));
 
         // Act
         var resultado = controlAcceso.Enter(trabajador);
@@ -44,11 +44,10 @@ public class ControlAccesoObraTests
     public void UnTrabajadorNoPuedeIngresarSiNoCumpleConLaReglaDeCedula()
     {
         // Arrange
-        var controlAcceso = new ControlAccesoObra();
+        var controlAcceso = new ControlAccesoObra([new RuleForDocumentNumberEven()]);
         var trabajador = new Worker("Juan", "Perez", "12345679",
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero, 0);
-        controlAcceso.AddRule(new RuleForDocumentNumberEven());
 
         // Act
         var resultado = controlAcceso.Enter(trabajador);
@@ -61,12 +60,11 @@ public class ControlAccesoObraTests
     public void UnTrabajadorNoPuedeIngresarSiNoCumpleConLaReglaDeAvanceMinimo()
     {
         // Arrange
-        var controlAcceso = new ControlAccesoObra();
+        var controlAcceso = new ControlAccesoObra([new RuleForProgress()]);
         var trabajador = new Worker("Juan", "Perez", "12345678",
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero,
             0);
-        controlAcceso.AddRule(new RuleForProgress());
 
         // Act
         var resultado = controlAcceso.Enter(trabajador);
@@ -79,11 +77,10 @@ public class ControlAccesoObraTests
     public void UnTrabajadorNoPuedeIngresarSiNoCumpleConLaReglaDeCumpleaños()
     {
         // Arrange
-        var controlAcceso = new ControlAccesoObra();
+        var controlAcceso = new ControlAccesoObra([new RuleForBirthDate()]);
         var trabajador = new Worker("Juan", "Perez", "12345678",
             new DateTime(2025, 10, 28),
             TypeSpecialty.Carpintero, 60);
-        controlAcceso.AddRule(new RuleForBirthDate());
 
         // Act
         var resultado = controlAcceso.Enter(trabajador);

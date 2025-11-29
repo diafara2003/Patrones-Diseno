@@ -1,32 +1,33 @@
 namespace ControlObra.Dominio;
 
-public class ControlAccesoObra
+public class ControlAccesoObra(List<IAccessRule> rules)
 {
-    public static string IngresoExitoso = "Ingreso exitoso";
-
-    private List<IAccessRule> _rules = [];
     private readonly List<Worker> _workers = [];
-
-    public void AddRule(IAccessRule rule) => _rules.Add(rule);
 
 
     public string Enter(Worker employ)
     {
-        var rulesError = _rules
+        var accessRules = rules
             .Where(rule => !rule.HasAccess(employ))
             .ToList();
 
-        if (rulesError.Any())
-            return FormatErrorMessages(rulesError);
+
+        var messageFormat = FormatErrorMessages(accessRules);
+
+        if (accessRules.Any())
+            return FormatErrorMessages(accessRules);
 
 
         _workers.Add(employ);
 
-        return IngresoExitoso;
+        return messageFormat;
     }
 
-    private static string FormatErrorMessages(IEnumerable<IAccessRule> rulesError)
+    private string FormatErrorMessages(List<IAccessRule> rulesError)
     {
+        if (rulesError.Count == 0)
+            return "Ingreso exitoso";
+
         return rulesError.Select(ruleMessage => ruleMessage.Message)
             .Aggregate((current, next) => current + ", " + next);
     }
