@@ -197,4 +197,17 @@ public class ControlAccesoObraTests
         // Assert
         controlAcceso.GetWorker(trabajador.DocumentNumber).Progress.Should().Be(56);
     }
+
+    [Fact(DisplayName = "Si busco un trabajador que no existe debe lanzar exepcion")]
+    public void SiBuscoUnTrabajadorQueNoExisteDebeLanzarExepcion()
+    {
+        // Arrange
+        var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
+
+        // Act
+        Action act = () => controlAcceso.GetWorker("12345678");
+
+        // Assert
+        act.Should().Throw<InvalidOperationException>();
+    }
 }
