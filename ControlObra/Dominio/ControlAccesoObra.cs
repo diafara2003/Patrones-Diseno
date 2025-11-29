@@ -30,23 +30,27 @@ public class ControlAccesoObra(List<IAccessRule> rules, int minProgress)
         return worker ?? throw new InvalidOperationException("El trabajador no existe");
     }
 
-    public bool Exit(string documentNumber, int progress, ExitType exitType)
+    public bool ExitForLunch(string documentNumber)
+    {
+        var worker = GetWorker(documentNumber);
+
+        worker.AddLogExit(new LogExit(documentNumber, 0, ExitType.Lunch));
+
+        return true;
+    }
+
+    public bool Exit(string documentNumber, int progress)
     {
         var worker = GetWorker(documentNumber);
         var totalProgressWorker = worker.Progress + progress;
 
         ThrowIfProgressMoreThan100(totalProgressWorker);
 
-        if (exitType == ExitType.Lunch)
-        {
-            worker.AddLogExit(new LogExit(documentNumber, 0, exitType));
-            return true;
-        }
 
         if (IsProgressSufficient(totalProgressWorker))
             return false;
 
-        worker.AddLogExit(new LogExit(documentNumber, progress, exitType));
+        worker.AddLogExit(new LogExit(documentNumber, progress, ExitType.Other));
 
         return true;
     }

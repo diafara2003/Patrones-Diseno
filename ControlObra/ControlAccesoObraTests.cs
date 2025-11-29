@@ -140,7 +140,7 @@ public class ControlAccesoObraTests
         controlAcceso.Enter(trabajador);
 
         // Act
-        var result = controlAcceso.Exit(trabajador.DocumentNumber, trabajador.Progress, ExitType.Lunch);
+        var result = controlAcceso.ExitForLunch(trabajador.DocumentNumber);
 
         // Assert
         result.Should().BeTrue();
@@ -157,7 +157,7 @@ public class ControlAccesoObraTests
         controlAcceso.Enter(trabajador);
 
         // Act
-        var result = controlAcceso.Exit(trabajador.DocumentNumber, trabajador.Progress, ExitType.Other);
+        var result = controlAcceso.Exit(trabajador.DocumentNumber, trabajador.Progress);
 
         // Assert
         result.Should().BeFalse();
@@ -172,10 +172,10 @@ public class ControlAccesoObraTests
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero);
         controlAcceso.Enter(trabajador);
-        controlAcceso.Exit(trabajador.DocumentNumber, 51, ExitType.Other);
+        controlAcceso.Exit(trabajador.DocumentNumber, 51);
 
         // Act
-        var result = controlAcceso.Exit(trabajador.DocumentNumber, 10, ExitType.Other);
+        var result = controlAcceso.Exit(trabajador.DocumentNumber, 10);
 
         // Assert
         result.Should().BeTrue();
@@ -191,7 +191,7 @@ public class ControlAccesoObraTests
             TypeSpecialty.Carpintero);
 
         // Act
-        Action act = () => controlAcceso.Exit(trabajador.DocumentNumber, 10, ExitType.Other);
+        Action act = () => controlAcceso.Exit(trabajador.DocumentNumber, 10);
 
         // Assert
         act.Should().Throw<InvalidOperationException>();
@@ -206,10 +206,10 @@ public class ControlAccesoObraTests
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero);
         controlAcceso.Enter(trabajador);
-        controlAcceso.Exit(trabajador.DocumentNumber, 51, ExitType.Other);
+        controlAcceso.Exit(trabajador.DocumentNumber, 51);
 
         // Act
-        controlAcceso.Exit(trabajador.DocumentNumber, 5, ExitType.Other);
+        controlAcceso.Exit(trabajador.DocumentNumber, 5);
 
         // Assert
         controlAcceso.GetWorker(trabajador.DocumentNumber).Progress.Should().Be(56);
@@ -238,10 +238,10 @@ public class ControlAccesoObraTests
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero);
         controlAcceso.Enter(trabajador);
-        controlAcceso.Exit(trabajador.DocumentNumber, 100, ExitType.Other);
+        controlAcceso.Exit(trabajador.DocumentNumber, 100);
 
         // Act
-        Action act = () => controlAcceso.Exit(trabajador.DocumentNumber, 10, ExitType.Other);
+        Action act = () => controlAcceso.Exit(trabajador.DocumentNumber, 10);
 
         // Assert
         act.Should().Throw<InvalidOperationException>();
@@ -257,10 +257,10 @@ public class ControlAccesoObraTests
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero);
         controlAcceso.Enter(trabajador);
-        controlAcceso.Exit(trabajador.DocumentNumber, 100, ExitType.Other);
+        controlAcceso.Exit(trabajador.DocumentNumber, 100);
 
         // Act
-        var result = controlAcceso.Exit(trabajador.DocumentNumber, 0, ExitType.Lunch);
+        var result = controlAcceso.ExitForLunch(trabajador.DocumentNumber);
 
         // Assert
         result.Should().BeTrue();
@@ -287,13 +287,13 @@ public class ControlAccesoObraTests
         var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
         var trabajador = new Worker("Juan", "12345678", DateTime.Now, TypeSpecialty.Carpintero);
         controlAcceso.Enter(trabajador);
-        controlAcceso.Exit(trabajador.DocumentNumber, 51, ExitType.Other);
-        controlAcceso.Exit(trabajador.DocumentNumber, 0, ExitType.Lunch);
-        controlAcceso.Exit(trabajador.DocumentNumber, 1, ExitType.Other);
-        
-        // Act
-      var trabajadorFinalJornada=  controlAcceso.GetWorker(trabajador.DocumentNumber);
+        controlAcceso.Exit(trabajador.DocumentNumber, 51);
+        controlAcceso.ExitForLunch(trabajador.DocumentNumber);
+        controlAcceso.Exit(trabajador.DocumentNumber, 1);
 
-      trabajadorFinalJornada.CountExit.Should().Be(3);
+        // Act
+        var trabajadorFinalJornada = controlAcceso.GetWorker(trabajador.DocumentNumber);
+
+        trabajadorFinalJornada.CountExit.Should().Be(3);
     }
 }
