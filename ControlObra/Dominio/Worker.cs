@@ -12,10 +12,9 @@ public class Worker(
     public string DocumentNumber => documentNumber;
     public DateTime BirthDate => birthDate;
     public TypeSpecialty Speciality => speciality;
+    public int Progress => _exitLogs.GetProgress();
     private List<LogExit> _exitLogs = [];
 
-    public int Progress => _exitLogs.GetProgress();
-
-
-    public void AddLogExit(LogExit logExit) => _exitLogs.Add(logExit);
+    public void AddLogExit(LogExit logExit)
+        => _exitLogs.Add(logExit);
 }
