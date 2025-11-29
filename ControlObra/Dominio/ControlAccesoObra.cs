@@ -32,9 +32,10 @@ public class ControlAccesoObra(List<IAccessRule> rules, int minProgress)
 
     public bool Exit(string documentNumber, int progress, ExitType exitType)
     {
-        var worker = Workers.FirstOrDefault(worker => worker.DocumentNumber == documentNumber);
+        var worker = GetWorker(documentNumber);
+        var totalProgressWorker = worker.Progress + progress;
 
-        ThrowIfWorkerNotFound(worker);
+        ThrowIfProgressMoreThan100(totalProgressWorker);
 
         if (exitType == ExitType.Lunch)
         {
@@ -42,14 +43,8 @@ public class ControlAccesoObra(List<IAccessRule> rules, int minProgress)
             return true;
         }
 
-        var totalProgressWorker = worker.Progress + progress;
-
-        ThrowIfProgressMoreThan100(totalProgressWorker);
-        
         if (IsProgressSufficient(totalProgressWorker))
             return false;
-
-        ThrowIfProgressMoreThan100(totalProgressWorker);
 
         worker.AddLogExit(new LogExit(documentNumber, progress, exitType));
 
@@ -62,11 +57,6 @@ public class ControlAccesoObra(List<IAccessRule> rules, int minProgress)
             throw new InvalidOperationException("El avance no puede superar el 100%");
     }
 
-    private void ThrowIfWorkerNotFound(Worker? worker)
-    {
-        if (worker is null)
-            throw new InvalidOperationException("El trabajador no existe");
-    }
 
     private List<string> EvaluateAccessRules(Worker employ)
     {
