@@ -105,4 +105,22 @@ public class ControlAccesoObraTests
         // Assert
         resultado.Should().Be("No cumple con la regla de cumpleaños, No cumple con la regla de especialidad");
     }
+
+
+    [Fact(DisplayName = "Si la salida de un empleado es por almuerzo siempre es exitosa y no modifica el avance")]
+    public void SalidaPorAlmuerzoEsExitosa()
+    {
+        // Arrange
+        var controlAcceso = new ControlAccesoObra([new EmptyRule()]);
+        var trabajador = new Worker("Juan", "Perez", "12345678",
+            new DateTime(2025, 11, 28),
+            TypeSpecialty.Carpintero, 60);
+        controlAcceso.Enter(trabajador);
+
+        // Act
+        var result = controlAcceso.Exit(trabajador.documentNumber, trabajador.progress, ExitType.Lunch);
+
+        // Assert
+        result.Should().BeTrue();
+    }
 }

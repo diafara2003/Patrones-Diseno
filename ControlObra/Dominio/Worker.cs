@@ -7,3 +7,5 @@ public record Worker(
     DateTime birthDate,
     TypeSpecialty speciality,
     int progress);
+
+public record LogExit(string documentNumber,int progress, ExitType exitType);

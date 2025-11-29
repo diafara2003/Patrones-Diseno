@@ -4,13 +4,14 @@ namespace ControlObra.Dominio;
 
 public class ControlAccesoObra(List<IAccessRule> rules)
 {
-    private readonly List<Worker> _workers = [];
+    public readonly List<Worker> workers = [];
+    private List<LogExit> _exitLogs = [];
 
 
     public string Enter(Worker employ)
     {
         var accessRules = rules
-            .Select(rule => rule.EvaluateAccess(employ))
+            .Select(rule => rule.EvaluateRule(employ))
             .ToList();
 
 
@@ -20,7 +21,7 @@ public class ControlAccesoObra(List<IAccessRule> rules)
             return FormatErrorMessages(accessRules);
 
 
-        _workers.Add(employ);
+        workers.Add(employ);
 
         return messageFormat;
     }
@@ -30,4 +31,16 @@ public class ControlAccesoObra(List<IAccessRule> rules)
         return rulesError
             .Aggregate((current, next) => current + ", " + next);
     }
+
+    public bool Exit(string documentNumber, int progress, ExitType exitType)
+    {
+        _exitLogs.Add(new LogExit(documentNumber, progress, exitType));
+        
+        return true;
+    }
+}
+
+public enum ExitType
+{
+    Lunch
 }
