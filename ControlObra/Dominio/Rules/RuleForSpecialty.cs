@@ -1,15 +1,13 @@
-namespace ControlObra.Dominio;
+namespace ControlObra.Dominio.Rules;
 
 public class RuleForSpecialty(TypeSpecialty typeSpecialty) : IAccessRule
 {
-    public string Message { get; private set; } = "";
+    // public string Message { get; private set; } = "";
 
-    public bool HasAccess(Worker worker)
+    public string EvaluateAccess(Worker worker)
     {
         var isAccess = worker.speciality == typeSpecialty;
 
-        if (isAccess is false)
-            Message = "No cumple con la regla de especialidad";
-        return isAccess;
+        return isAccess is false ? "No cumple con la regla de especialidad" : "";
     }
 }

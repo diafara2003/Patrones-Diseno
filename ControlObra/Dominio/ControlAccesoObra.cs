@@ -8,7 +8,7 @@ public class ControlAccesoObra(List<IAccessRule> rules)
     public string Enter(Worker employ)
     {
         var accessRules = rules
-            .Where(rule => !rule.HasAccess(employ))
+            .Select(rule => rule.EvaluateAccess(employ))
             .ToList();
 
 
@@ -23,12 +23,9 @@ public class ControlAccesoObra(List<IAccessRule> rules)
         return messageFormat;
     }
 
-    private string FormatErrorMessages(List<IAccessRule> rulesError)
+    private string FormatErrorMessages(List<string> rulesError)
     {
-        if (rulesError.Count == 0)
-            return "Ingreso exitoso";
-
-        return rulesError.Select(ruleMessage => ruleMessage.Message)
+        return rulesError
             .Aggregate((current, next) => current + ", " + next);
     }
 }
