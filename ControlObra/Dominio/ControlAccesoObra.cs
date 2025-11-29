@@ -34,10 +34,7 @@ public class ControlAccesoObra(List<IAccessRule> rules, int minProgress)
     {
         var worker = Workers.FirstOrDefault(worker => worker.DocumentNumber == documentNumber);
 
-        if (worker is null)
-            throw new InvalidOperationException("El trabajador no existe");
-        
-        return worker;
+        return worker ?? throw new InvalidOperationException("El trabajador no existe");
     }
 
     public bool Exit(string documentNumber, int progress, ExitType exitType)
