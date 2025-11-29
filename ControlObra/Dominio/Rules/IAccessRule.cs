@@ -1,4 +1,4 @@
-namespace ControlObra.Dominio;
+namespace ControlObra.Dominio.Rules;
 
 public interface IAccessRule
 {

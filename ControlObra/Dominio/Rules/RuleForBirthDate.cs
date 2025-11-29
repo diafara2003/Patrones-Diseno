@@ -1,9 +1,8 @@
-namespace ControlObra.Dominio;
+namespace ControlObra.Dominio.Rules;
 
 public class RuleForBirthDate : IAccessRule
 {
-    // public string Message { get; private set; } = "";
-
+   
     public string EvaluateAccess(Worker worker)
     {
         var isAccess = worker.birthDate.Month == DateTime.Now.Month
