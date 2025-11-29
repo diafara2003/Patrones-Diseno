@@ -11,7 +11,7 @@ public class ControlAccesoObraTests
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
-        var trabajador = new Worker("Juan", "Perez", "12345678",
+        var trabajador = new Worker("Juan", "12345678",
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero);
 
@@ -29,7 +29,7 @@ public class ControlAccesoObraTests
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra([new RuleForSpecialty(TypeSpecialty.Carpintero)], 50);
-        var trabajador = new Worker("Juan", "Perez", "12345678",
+        var trabajador = new Worker("Juan", "12345678",
             new DateTime(2025, 11, 28),
             TypeSpecialty.OperarioMaquina);
 
@@ -41,13 +41,30 @@ public class ControlAccesoObraTests
         controlAcceso.Workers.Should().HaveCount(0);
     }
 
+    [Fact(DisplayName = "Solo pueden ingresar trabajadores que empiecen por J")]
+    public void UnTrabajadorNoPuedeIngresarSiNoCumpleConLaReglaDeNombre()
+    {
+        // Arrange
+        var controlAcceso = new ControlAccesoObra([new RuleForName("A")], 50);
+        var trabajador = new Worker("Juan", "12345678",
+            new DateTime(2025, 11, 28),
+            TypeSpecialty.OperarioMaquina);
+
+        // Act
+        var resultado = controlAcceso.Enter(trabajador);
+
+        // Assert
+        resultado.Should().Be($"No cumple con la regla de nombre, debe empezar por A");
+        controlAcceso.Workers.Should().HaveCount(0);
+    }
+
     [Fact(DisplayName =
         "Si un trabajador no cumple con la regla de cedula no puede ingresar - Solo cedulas pares ingresan")]
     public void UnTrabajadorNoPuedeIngresarSiNoCumpleConLaReglaDeCedula()
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra([new RuleForDocumentNumberEven()], 50);
-        var trabajador = new Worker("Juan", "Perez", "12345679",
+        var trabajador = new Worker("Juan", "12345679",
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero);
 
@@ -64,7 +81,7 @@ public class ControlAccesoObraTests
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra([new RuleForProgress()], 50);
-        var trabajador = new Worker("Juan", "Perez", "12345678",
+        var trabajador = new Worker("Juan", "12345678",
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero);
 
@@ -81,7 +98,7 @@ public class ControlAccesoObraTests
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra([new RuleForBirthDate()], 50);
-        var trabajador = new Worker("Juan", "Perez", "12345678",
+        var trabajador = new Worker("Juan", "12345678",
             new DateTime(2025, 10, 28),
             TypeSpecialty.Carpintero);
 
@@ -99,7 +116,7 @@ public class ControlAccesoObraTests
         // Arrange
         var controlAcceso =
             new ControlAccesoObra([new RuleForBirthDate(), new RuleForSpecialty(TypeSpecialty.OperarioMaquina)], 50);
-        var trabajador = new Worker("Juan", "Perez", "12345678",
+        var trabajador = new Worker("Juan", "12345678",
             new DateTime(2025, 10, 28),
             TypeSpecialty.Carpintero);
 
@@ -117,7 +134,7 @@ public class ControlAccesoObraTests
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
-        var trabajador = new Worker("Juan", "Perez", "12345678",
+        var trabajador = new Worker("Juan", "12345678",
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero);
         controlAcceso.Enter(trabajador);
@@ -134,7 +151,7 @@ public class ControlAccesoObraTests
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
-        var trabajador = new Worker("Juan", "Perez", "12345678",
+        var trabajador = new Worker("Juan", "12345678",
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero);
         controlAcceso.Enter(trabajador);
@@ -151,7 +168,7 @@ public class ControlAccesoObraTests
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
-        var trabajador = new Worker("Juan", "Perez", "12345678",
+        var trabajador = new Worker("Juan", "12345678",
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero);
         controlAcceso.Enter(trabajador);
@@ -169,7 +186,7 @@ public class ControlAccesoObraTests
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
-        var trabajador = new Worker("Juan", "Perez", "12345678",
+        var trabajador = new Worker("Juan", "12345678",
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero);
 
@@ -185,7 +202,7 @@ public class ControlAccesoObraTests
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
-        var trabajador = new Worker("Juan", "Perez", "12345678",
+        var trabajador = new Worker("Juan", "12345678",
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero);
         controlAcceso.Enter(trabajador);
@@ -217,7 +234,7 @@ public class ControlAccesoObraTests
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
-        var trabajador = new Worker("Juan", "Perez", "12345678",
+        var trabajador = new Worker("Juan", "12345678",
             new DateTime(2025, 11, 28),
             TypeSpecialty.Carpintero);
         controlAcceso.Enter(trabajador);

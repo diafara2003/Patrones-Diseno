@@ -2,14 +2,13 @@ namespace ControlObra.Dominio;
 
 public class Worker(
     string name,
-    string lastName,
     string documentNumber,
     DateTime birthDate,
     TypeSpecialty speciality
 )
 {
     public string Name => name;
-    public string LastName => lastName;
+
     public string DocumentNumber => documentNumber;
     public DateTime BirthDate => birthDate;
     public TypeSpecialty Speciality => speciality;
