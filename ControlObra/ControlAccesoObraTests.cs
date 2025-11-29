@@ -13,7 +13,7 @@ public class ControlAccesoObraTests
         var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
         var trabajador = new Worker("Juan", "Perez", "12345678",
             new DateTime(2025, 11, 28),
-            TypeSpecialty.Carpintero, 60);
+            TypeSpecialty.Carpintero);
 
 
         // Act
@@ -21,7 +21,7 @@ public class ControlAccesoObraTests
 
         // Assert
         resultado.Should().Be("Ingreso exitoso");
-        controlAcceso.workers.Should().HaveCount(1);
+        controlAcceso.Workers.Should().HaveCount(1);
     }
 
     [Fact(DisplayName = "Un trabajador tipo Operador de maquina no puede ingresar por la regla de especialidad   ")]
@@ -31,14 +31,14 @@ public class ControlAccesoObraTests
         var controlAcceso = new ControlAccesoObra([new RuleForSpecialty(TypeSpecialty.Carpintero)], 50);
         var trabajador = new Worker("Juan", "Perez", "12345678",
             new DateTime(2025, 11, 28),
-            TypeSpecialty.OperarioMaquina, 0);
+            TypeSpecialty.OperarioMaquina);
 
         // Act
         var resultado = controlAcceso.Enter(trabajador);
 
         // Assert
         resultado.Should().Be("No cumple con la regla de especialidad");
-        controlAcceso.workers.Should().HaveCount(0);
+        controlAcceso.Workers.Should().HaveCount(0);
     }
 
     [Fact(DisplayName =
@@ -49,14 +49,14 @@ public class ControlAccesoObraTests
         var controlAcceso = new ControlAccesoObra([new RuleForDocumentNumberEven()], 50);
         var trabajador = new Worker("Juan", "Perez", "12345679",
             new DateTime(2025, 11, 28),
-            TypeSpecialty.Carpintero, 0);
+            TypeSpecialty.Carpintero);
 
         // Act
         var resultado = controlAcceso.Enter(trabajador);
 
         // Assert
         resultado.Should().Be("No cumple con la regla de cedula");
-        controlAcceso.workers.Should().HaveCount(0);
+        controlAcceso.Workers.Should().HaveCount(0);
     }
 
     [Fact(DisplayName = "Un Empleado no puede ingresar por la regla del avance minimo del 50%")]
@@ -66,15 +66,14 @@ public class ControlAccesoObraTests
         var controlAcceso = new ControlAccesoObra([new RuleForProgress()], 50);
         var trabajador = new Worker("Juan", "Perez", "12345678",
             new DateTime(2025, 11, 28),
-            TypeSpecialty.Carpintero,
-            0);
+            TypeSpecialty.Carpintero);
 
         // Act
         var resultado = controlAcceso.Enter(trabajador);
 
         // Assert
         resultado.Should().Be("No cumple con la regla de progreso");
-        controlAcceso.workers.Should().HaveCount(0);
+        controlAcceso.Workers.Should().HaveCount(0);
     }
 
     [Fact(DisplayName = "Un Empleado solo puede ingresar si cumple años ese dia")]
@@ -84,14 +83,14 @@ public class ControlAccesoObraTests
         var controlAcceso = new ControlAccesoObra([new RuleForBirthDate()], 50);
         var trabajador = new Worker("Juan", "Perez", "12345678",
             new DateTime(2025, 10, 28),
-            TypeSpecialty.Carpintero, 60);
+            TypeSpecialty.Carpintero);
 
         // Act
         var resultado = controlAcceso.Enter(trabajador);
 
         // Assert
         resultado.Should().Be("No cumple con la regla de cumpleaños");
-        controlAcceso.workers.Should().HaveCount(0);
+        controlAcceso.Workers.Should().HaveCount(0);
     }
 
     [Fact(DisplayName = "Un Empleado solo puede ingresar si cumple años ese dia y es carpintero")]
@@ -102,14 +101,14 @@ public class ControlAccesoObraTests
             new ControlAccesoObra([new RuleForBirthDate(), new RuleForSpecialty(TypeSpecialty.OperarioMaquina)], 50);
         var trabajador = new Worker("Juan", "Perez", "12345678",
             new DateTime(2025, 10, 28),
-            TypeSpecialty.Carpintero, 60);
+            TypeSpecialty.Carpintero);
 
         // Act
         var resultado = controlAcceso.Enter(trabajador);
 
         // Assert
         resultado.Should().Be("No cumple con la regla de cumpleaños, No cumple con la regla de especialidad");
-        controlAcceso.workers.Should().HaveCount(0);
+        controlAcceso.Workers.Should().HaveCount(0);
     }
 
 
@@ -120,11 +119,11 @@ public class ControlAccesoObraTests
         var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
         var trabajador = new Worker("Juan", "Perez", "12345678",
             new DateTime(2025, 11, 28),
-            TypeSpecialty.Carpintero, 60);
+            TypeSpecialty.Carpintero);
         controlAcceso.Enter(trabajador);
 
         // Act
-        var result = controlAcceso.Exit(trabajador.documentNumber, trabajador.progress, ExitType.Lunch);
+        var result = controlAcceso.Exit(trabajador.DocumentNumber, trabajador.Progress, ExitType.Lunch);
 
         // Assert
         result.Should().BeTrue();
@@ -137,11 +136,11 @@ public class ControlAccesoObraTests
         var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
         var trabajador = new Worker("Juan", "Perez", "12345678",
             new DateTime(2025, 11, 28),
-            TypeSpecialty.Carpintero, 20);
+            TypeSpecialty.Carpintero);
         controlAcceso.Enter(trabajador);
 
         // Act
-        var result = controlAcceso.Exit(trabajador.documentNumber, trabajador.progress, ExitType.Other);
+        var result = controlAcceso.Exit(trabajador.DocumentNumber, trabajador.Progress, ExitType.Other);
 
         // Assert
         result.Should().BeFalse();
@@ -154,30 +153,48 @@ public class ControlAccesoObraTests
         var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
         var trabajador = new Worker("Juan", "Perez", "12345678",
             new DateTime(2025, 11, 28),
-            TypeSpecialty.Carpintero, 20);
+            TypeSpecialty.Carpintero);
         controlAcceso.Enter(trabajador);
-        controlAcceso.Exit(trabajador.documentNumber, 31, ExitType.Other);
+        controlAcceso.Exit(trabajador.DocumentNumber, 51, ExitType.Other);
 
         // Act
-        var result = controlAcceso.Exit(trabajador.documentNumber, 10, ExitType.Other);
+        var result = controlAcceso.Exit(trabajador.DocumentNumber, 10, ExitType.Other);
 
         // Assert
         result.Should().BeTrue();
     }
 
-    [Fact(DisplayName = "Si se intenta registrar una salida de un empleado debe lanzar exepcion")]
+    [Fact(DisplayName = "Si se intenta registrar una salida de un empleado que no existe debe lanzar exepcion")]
     public void UnEmpleadoNoPuedeSalirSiNoEstaRegistrado()
     {
         // Arrange
         var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
         var trabajador = new Worker("Juan", "Perez", "12345678",
             new DateTime(2025, 11, 28),
-            TypeSpecialty.Carpintero, 20);
+            TypeSpecialty.Carpintero);
 
         // Act
-        Action act = () => controlAcceso.Exit(trabajador.documentNumber, 10, ExitType.Other);
+        Action act = () => controlAcceso.Exit(trabajador.DocumentNumber, 10, ExitType.Other);
 
         // Assert
         act.Should().Throw<InvalidOperationException>();
+    }
+
+    [Fact(DisplayName = "Si un empleado sale multiples veces el progreso debe aumentar")]
+    public void SiUnEmpleadoSaleMultiplesVecesElProgresoDebeAumentar()
+    {
+        // Arrange
+        var controlAcceso = new ControlAccesoObra([new EmptyRule()], 50);
+        var trabajador = new Worker("Juan", "Perez", "12345678",
+            new DateTime(2025, 11, 28),
+            TypeSpecialty.Carpintero);
+        controlAcceso.Enter(trabajador);
+        controlAcceso.Exit(trabajador.DocumentNumber, 51, ExitType.Other);
+
+        // Act
+        controlAcceso.Exit(trabajador.DocumentNumber, 5, ExitType.Other);
+
+        // Assert
+        controlAcceso.GetWorker(trabajador.DocumentNumber).Progress.Should().Be(56);
     }
 }

@@ -1,11 +1,22 @@
 namespace ControlObra.Dominio;
 
-public record Worker(
+public class Worker(
     string name,
     string lastName,
     string documentNumber,
     DateTime birthDate,
-    TypeSpecialty speciality,
-    int progress);
+    TypeSpecialty speciality
+)
+{
+    public string Name => name;
+    public string LastName => lastName;
+    public string DocumentNumber => documentNumber;
+    public DateTime BirthDate => birthDate;
+    public TypeSpecialty Speciality => speciality;
+    private List<LogExit> _exitLogs = [];
 
-public record LogExit(string documentNumber,int progress, ExitType exitType);
+    public int Progress => _exitLogs.GetProgress();
+
+
+    public void AddLogExit(LogExit logExit) => _exitLogs.Add(logExit);
+}
