@@ -2,19 +2,18 @@ namespace ControlObra.Dominio;
 
 public class Worker
 {
-    public string Name => _name;
+    public string Name { get; }
 
-    public string DocumentNumber => _documentNumber;
-    public DateTime BirthDate => _birthDate;
-    public TypeSpecialty Speciality => _speciality;
+    public string DocumentNumber { get; }
+
+    public DateTime BirthDate { get; }
+
+    public TypeSpecialty Speciality { get; }
+
     public int Progress => _exitLogs.GetProgress();
     public int CountExit => _exitLogs.Count;
 
-    private List<LogExit> _exitLogs = [];
-    private readonly string _name;
-    private readonly string _documentNumber;
-    private readonly DateTime _birthDate;
-    private readonly TypeSpecialty _speciality;
+    private readonly List<LogExit> _exitLogs = [];
 
     public Worker(string name,
         string documentNumber,
@@ -24,10 +23,10 @@ public class Worker
         ArgumentException.ThrowIfNullOrEmpty(documentNumber);
         ArgumentException.ThrowIfNullOrEmpty(name);
 
-        _name = name;
-        _documentNumber = documentNumber;
-        _birthDate = birthDate;
-        _speciality = speciality;
+        Name = name;
+        DocumentNumber = documentNumber;
+        BirthDate = birthDate;
+        Speciality = speciality;
     }
 
     public void AddLogExit(LogExit logExit)

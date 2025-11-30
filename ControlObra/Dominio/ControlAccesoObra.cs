@@ -46,7 +46,6 @@ public class ControlAccesoObra(List<IAccessRule> rules, int minProgress)
 
         ThrowIfProgressMoreThan100(totalProgressWorker);
 
-
         if (IsProgressSufficient(totalProgressWorker))
             return false;
 
