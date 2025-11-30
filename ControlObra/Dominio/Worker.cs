@@ -23,6 +23,7 @@ public class Worker
         ArgumentException.ThrowIfNullOrEmpty(documentNumber);
         ArgumentException.ThrowIfNullOrEmpty(name);
 
+
         Name = name;
         DocumentNumber = documentNumber;
         BirthDate = birthDate;
